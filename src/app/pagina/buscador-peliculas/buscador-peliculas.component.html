@@ -1,0 +1,22 @@
+<div class="detalles" *ngIf="detallesPelicula">
+  <div class="contenedor">
+    <div class="portada">
+      <img [src]="portadaPelicula()" alt="poster" class="img-fluid">
+    </div>
+    <div class="descripcion">
+      <h3><b>{{ detallesPelicula.title || detallesPelicula.name }}</b></h3>
+      <p><strong>Descripción: </strong>{{ detallesPelicula.overview }}</p>
+      <p><strong>Fecha de lanzamiento: </strong> {{ detallesPelicula.release_date }}</p>
+      <p><strong>Calificación: </strong> {{ detallesPelicula.vote_average.toFixed(1) }}</p>
+      <button class="btn btn-outline-success" type="submit" (click)="openModal()">Trailer</button>
+      <div class="genero">
+        <ul class="listaGenero" *ngFor="let detalleGenero of detallesPelicula.genres">
+          <li>{{detalleGenero.name}}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="fondo">
+  <img [src]="fondoPelicula()" alt="fondo" class="img-fluid">
+</div>

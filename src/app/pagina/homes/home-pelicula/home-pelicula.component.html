@@ -1,0 +1,13 @@
+<div class="container">
+  <div *ngFor="let row of chunk(movies, itemsPerRow)" class="row">
+    <div class="col-md-3" *ngFor="let movie of row">
+      <div class="card" (click)="detalles(movie.id)">
+        <img class="card-img-top" [src]="getMovieImageUrl(movie)" alt="Movie Poster">
+      </div>
+    </div>
+  </div>
+  <div class="pagination" aria-label="Page navigation example">
+    <app-pagination [totalPages]="totalPages" [currentPage]="currentPage" (pageChange)="changePage($event)">
+    </app-pagination>
+  </div>
+</div>

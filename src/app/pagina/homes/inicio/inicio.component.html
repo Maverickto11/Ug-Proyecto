@@ -1,0 +1,103 @@
+
+  <div class="carousel-inner" *ngIf="bannnerApi && bannnerApi.length > 0">
+    <div class="carousel-item active" *ngFor="let b of bannnerApi; let i=index" [class.active]="i === currentIndex">
+      <img src="https://image.tmdb.org/t/p/original/{{ b.backdrop_path }}" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <h2>{{b.original_name || b.original_title}}</h2>
+        <p class="parrafoPelicula">{{ truncatedOverview(b.overview, i) }}
+          <span class="read-more" *ngIf="isOverMaxLength(b.overview, i)" (mouseenter)="toggleOverview(i)"
+            (mouseleave)="toggleOverview(i)">
+            Ver más
+          </span>
+        </p>
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev"
+      (click)="prevImage()">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next"
+      (click)="nextImage()">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+    <div class="gradient-overlay"></div>
+  </div>
+
+  <div class="Tendencias" style="width: 100%; overflow-x: auto;">
+    <div class="tit-proximamente">
+      <h2 class="proximamente">Tendencias</h2>
+    </div>
+    <div class="horizontal" #container>
+      <ng-container *ngFor="let proximos of tendencias">
+        <div class="imagen" (click)="detalle(proximos.media_type, proximos.id)">
+          <img class="imaPopular" src="https://image.tmdb.org/t/p/original/{{ proximos.poster_path }}" alt="">
+        </div>
+      </ng-container>
+    </div>
+    <button *ngIf="!isAtEnd" (click)="scroll('right', 'tendencias')" class="scroll-button">
+      <span class="arrow" style="color: #fdfdfd">►</span>
+    </button>
+    <button *ngIf="!isAtStart" (click)="scroll('left', 'tendencias')" class="scroll-button-left">
+      <span class="arrow" style="color: #fdfdfd">◄</span>
+    </button>
+  </div>
+
+  <div class="Popular" style="width: 100%; overflow-x: auto;">
+    <div class="tit-proximamente">
+      <h2 class="proximamente">Próximamente</h2>
+    </div>
+    <div class="horizontal" #containerProximamente>
+      <ng-container *ngFor="let lisGenero of generos">
+        <div class="imagen" (click)="detallePelicula(lisGenero.id)">
+          <img class="imaPopular" src="https://image.tmdb.org/t/p/original/{{ lisGenero.poster_path }}" alt="">
+        </div>
+      </ng-container>
+    </div>
+    <button *ngIf="!isAtEnd" (click)="scroll('right', 'proximamente')" class="scroll-button">
+      <span class="arrow" style="color: #fdfdfd">►</span>
+    </button>
+    <button *ngIf="!isAtStart" (click)="scroll('left', 'proximamente')" class="scroll-button-left">
+      <span class="arrow" style="color: #fdfdfd">◄</span>
+    </button>
+  </div>
+
+  <div class="terror" style="width: 100%; overflow-x: auto;">
+    <div class="tit-proximamente">
+      <h2 class="proximamente">Terror</h2>
+    </div>
+    <div class="horizontal" #getterror>
+      <ng-container *ngFor="let lisGenero of terrorMoviesAndSeries">
+        <div class="imagen" (click)="detallePelicula(lisGenero.id)">
+          <img class="imaPopular" src="https://image.tmdb.org/t/p/original/{{ lisGenero.imageUrl }}" alt="">
+        </div>
+      </ng-container>
+    </div>
+    <button *ngIf="!isAtEnd" (click)="scroll('right', 'getterror')" class="scroll-button">
+      <span class="arrow" style="color: #fdfdfd">►</span>
+    </button>
+    <button *ngIf="!isAtStart" (click)="scroll('left', 'getterror')" class="scroll-button-left">
+      <span class="arrow" style="color: #fdfdfd">◄</span>
+    </button>
+  </div>
+
+  <div class="Action" style="width: 100%; overflow-x: auto;">
+    <div class="tit-proximamente">
+      <h2 class="proximamente">Action</h2>
+    </div>
+    <div class="horizontal" #Action>
+      <ng-container *ngFor="let lisGenero of ActionMoviesAndSeries">
+        <div class="imagen" (click)="detallePelicula(lisGenero.id)">
+          <img class="imaPopular" src="https://image.tmdb.org/t/p/original/{{ lisGenero.imageUrl }}" alt="">
+        </div>
+      </ng-container>
+    </div>
+    <button *ngIf="!isAtEnd" (click)="scroll('right', 'Action')" class="scroll-button">
+      <span class="arrow" style="color: #fdfdfd">►</span>
+    </button>
+    <button *ngIf="!isAtStart" (click)="scroll('left', 'Action')" class="scroll-button-left">
+      <span class="arrow" style="color: #fdfdfd">◄</span>
+    </button>
+  </div>
+  <app-footer></app-footer>

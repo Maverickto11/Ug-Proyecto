@@ -1,0 +1,182 @@
+.carousel-inner {
+  position: absolute;
+  width: 100%;
+  /* Ocupa todo el ancho disponible */
+  max-width: 1400px;
+  /* Ajusta el ancho máximo del carrusel si es necesario */
+  height: 550px;
+  /* Establece la altura deseada para el carrusel */
+  top: 0;
+  /* Alinea la parte superior del carousel con la parte superior del viewport */
+  z-index: 1;
+  /* Coloca el carousel detrás del navbar */
+  overflow: hidden;
+}
+
+.d-block {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.carousel-item img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.carousel-item.active img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.carousel {
+  width: 100%;
+  /* Ajusta el ancho al 100% */
+}
+
+.gradient-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  /* Altura del degradado, ajusta según necesites */
+  background: linear-gradient(to bottom, rgba(36, 35, 35, 0), rgba(23, 23, 24, 1));
+  /* Degradado que se desvanece hacia el color de fondo */
+}
+
+.carousel-caption {
+  margin-bottom: 230px;
+}
+
+.imaPopular {
+  display: flex;
+  max-height: 300px;
+  max-width: 200px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  /* Establece una altura máxima para las imágenes */
+  /* Establece un ancho máximo para las imágenes */
+}
+
+.horizontal {
+  display: flex;
+  overflow-x: hidden;
+  /* Permite el desplazamiento horizontal */
+  white-space: nowrap;
+  /* Evita que los elementos se rompan en varias líneas */
+  align-items: center;
+  /* Alinea los elementos verticalmente */
+  justify-content: space-between;
+  /* Distribuye los elementos horizontalmente */
+  padding: 10px;
+  /* Agrega un poco de espacio entre los elementos */
+  padding-top: 0px;
+
+}
+
+.imagen {
+  display: inline-block;
+  /* Hace que cada elemento sea un bloque en línea */
+  margin-right: 10px;
+  /* Agrega un poco de espacio entre las imágenes */
+}
+
+.proximamente {
+  color: #ffffff !important;
+
+}
+
+.Popular, .Action {
+  position: relative;
+  width: 100%;
+  overflow-x: auto;
+  white-space: nowrap;
+  padding-bottom: 20px;
+  /* Agrega espacio para el botón de desplazamiento */
+}
+
+.terror {
+  position: relative;
+  width: 100%;
+  overflow-x: auto;
+  white-space: nowrap;
+  padding-bottom: 20px;
+  /* Agrega espacio para el botón de desplazamiento */
+}
+
+.Tendencias {
+  position: relative;
+  width: 100%;
+  overflow-x: auto;
+  white-space: nowrap;
+  padding-bottom: 20px;
+  /* Agrega espacio para el botón de desplazamiento */
+  margin-top: 500px;
+  /* Ajusta la posición de las imágenes */
+}
+.Peliculas-terror{
+
+}
+
+.scroll-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 10px;
+  /* Posición del botón */
+  z-index: 1;
+  /* Asegura que esté sobre las imágenes */
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.scroll-button-left {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 10px;
+  /* Posición del botón */
+  z-index: 1;
+  /* Asegura que esté sobre las imágenes */
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.arrow {
+  font-size: 32px;
+  /* Tamaño del ícono */
+  transition: transform 0.3s ease;
+  /* Transición suave al girar */
+}
+
+.arrow:hover {
+  transform: rotate(90deg);
+  /* Gira el ícono al pasar el mouse */
+}
+
+.proximamente {
+  display: flex;
+  margin-left: 50px;
+  margin-bottom: 0px;
+  margin-top: 20px;
+  font-weight: bold;
+  color: #333;
+}
+
+.tit-proximamente {
+  display: flex;
+
+}

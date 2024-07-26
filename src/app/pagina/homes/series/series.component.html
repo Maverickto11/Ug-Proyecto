@@ -1,0 +1,14 @@
+    <div class="container">
+    <div *ngFor="let row of chunk(series, itemsPerRow)" class="row">
+        <div class="col-md-3" *ngFor="let serie of row">
+            <div class="card" (click)="detallesSeries(serie.id)">
+                <img class="card-img-top" [src]="getSeriesImageUrl(serie)"
+                    alt="Movie Poster">
+            </div>
+        </div>
+    </div>
+    <div class="pagination">
+        <app-pagination [totalPages]="totalPages" [currentPage]="currentPage" (pageChange)="changePage($event)">
+        </app-pagination>
+    </div>
+</div>

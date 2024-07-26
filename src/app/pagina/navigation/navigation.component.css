@@ -1,0 +1,51 @@
+nav.navbar{
+  position: relative;
+  z-index: 2; /* Asegura que el navbar esté sobre el carousel */
+
+  background-color: transparent !important; /* Fondo transparente */
+}
+.search-container {
+    position: relative; /* Contenedor común con posición relativa */
+  }
+  
+  .autocomplete-results {
+    max-height: 200px;
+    overflow-y: auto;
+    position: absolute; /* Contenedor de autocompletado con posición absoluta */
+    z-index: 1000;
+    background-color: #fff;
+    border-top: none;
+    width: 100%; /* Ancho del 100% del contenedor padre */
+    left: 0;
+    top: calc(100% + 2px);
+  }
+  
+  .movie-image {
+    width: 50px;
+    height: auto;
+    max-height: 75px;
+    display: inline-block;
+    margin-right: 5px;
+  }
+  .movie-title {
+    flex: 1; /* Permite que el texto ocupe el espacio restante */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .list-group-item {
+    display: flex;
+    align-items: center; /* Centra verticalmente los elementos */
+  }
+  
+  .movie-image {
+    margin-right: 10px; /* Ajusta el margen entre la imagen y el texto */
+  }
+  a{
+    color: #ffffff !important;
+  }
+
+  .form-control::placeholder, .form-control{
+    color: #7c7c7c !important;
+    background-color: transparent !important;
+  }
