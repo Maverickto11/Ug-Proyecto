@@ -51,9 +51,9 @@ export class InicioComponent implements OnInit {
   bannerData() {
     this.api.bannerApiData().subscribe((result) => {
       console.log(result, 'inicio#');
-      this.bannnerApi = result.results;
+      this.bannnerApi = result.$values;
     },
-      error => {
+      error => {  
         console.error('Error fetching movies:', error);
       }
     );
@@ -73,7 +73,7 @@ export class InicioComponent implements OnInit {
 
   gettendencias() {
     this.api.tendencias().subscribe((result) => {
-      this.tendencias = result.results;
+      this.tendencias = result.$values;
       console.log(this.tendencias, 'proximo');
     },
     );

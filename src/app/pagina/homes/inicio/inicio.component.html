@@ -1,9 +1,10 @@
 
+  
   <div class="carousel-inner" *ngIf="bannnerApi && bannnerApi.length > 0">
     <div class="carousel-item active" *ngFor="let b of bannnerApi; let i=index" [class.active]="i === currentIndex">
-      <img src="https://image.tmdb.org/t/p/original/{{ b.backdrop_path }}" class="d-block w-100" alt="...">
+      <img src="{{ b.backdropPath }}" class="d-block w-100" alt="...">      
       <div class="carousel-caption d-none d-md-block">
-        <h2>{{b.original_name || b.original_title}}</h2>
+        <h2>{{b.title || b.overview}}</h2>
         <p class="parrafoPelicula">{{ truncatedOverview(b.overview, i) }}
           <span class="read-more" *ngIf="isOverMaxLength(b.overview, i)" (mouseenter)="toggleOverview(i)"
             (mouseleave)="toggleOverview(i)">
@@ -12,6 +13,7 @@
         </p>
       </div>
     </div>
+
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev"
       (click)="prevImage()">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -24,7 +26,7 @@
     </button>
     <div class="gradient-overlay"></div>
   </div>
-
+  <!--
   <div class="Tendencias" style="width: 100%; overflow-x: auto;">
     <div class="tit-proximamente">
       <h2 class="proximamente">Tendencias</h2>
@@ -43,6 +45,29 @@
       <span class="arrow" style="color: #fdfdfd">◄</span>
     </button>
   </div>
+-->
+
+<div class="Tendencias" style="width: 100%; overflow-x: auto;">
+  <div class="tit-proximamente">
+    <h2 class="proximamente">Tendencias</h2>
+  </div>
+  <div class="horizontal" #container>
+    <ng-container *ngFor="let proximos of tendencias">
+      <div class="imagen">
+        <img class="imaPopular" src="{{ proximos.posterPath }}" alt="">
+      </div>
+    </ng-container>
+  </div>
+  <button *ngIf="!isAtEnd" (click)="scroll('right', 'tendencias')" class="scroll-button">
+    <span class="arrow" style="color: #fdfdfd">►</span>
+  </button>
+  <button *ngIf="!isAtStart" (click)="scroll('left', 'tendencias')" class="scroll-button-left">
+    <span class="arrow" style="color: #fdfdfd">◄</span>
+  </button>
+</div>
+
+
+
 
   <div class="Popular" style="width: 100%; overflow-x: auto;">
     <div class="tit-proximamente">
@@ -100,4 +125,5 @@
       <span class="arrow" style="color: #fdfdfd">◄</span>
     </button>
   </div>
+
   <app-footer></app-footer>

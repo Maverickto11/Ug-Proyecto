@@ -55,6 +55,7 @@
 
 .carousel-caption {
   margin-bottom: 230px;
+  
 }
 
 .imaPopular {
@@ -122,9 +123,6 @@
   /* Agrega espacio para el botón de desplazamiento */
   margin-top: 500px;
   /* Ajusta la posición de las imágenes */
-}
-.Peliculas-terror{
-
 }
 
 .scroll-button {

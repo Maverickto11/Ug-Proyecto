@@ -9,9 +9,13 @@ import { environment } from '../environment/environment';
 export class BuscadorPeliculasService {
 
   constructor(private http: HttpClient) { }
- 
+/* 
 bannerApiData(): Observable<any> {
     return this.http.get(`${environment.url}/trending/all/week?api_key=${environment.apiKey}`);
+  }
+*/
+  bannerApiData(): Observable<any> {
+    return this.http.get(`${environment.url2}`);
   }
 
   getMovies(number: number): Observable<any> {
@@ -24,10 +28,17 @@ bannerApiData(): Observable<any> {
     return this.http.get<any>(url);
   }
 
-  tendencias(): Observable<any> {
+  /*tendencias(): Observable<any> {
     const url = `${environment.url}/trending/all/day?api_key=${environment.apiKey}`;
     return this.http.get<any>(url);
-  }
+  }*/
+
+    tendencias(): Observable<any> {
+      const url = `${environment.url2}`;
+      return this.http.get<any>(url);
+    }
+
+
   trailers(id: number): Observable<any> {
     const url = `${environment.url}/movie/${id}/videos?api_key=${environment.apiKey}`;
     return this.http.get<any>(url);
