@@ -4,7 +4,7 @@
     <div class="carousel-item active" *ngFor="let b of bannnerApi; let i=index" [class.active]="i === currentIndex">
       <img src="{{ b.backdropPath }}" class="d-block w-100" alt="...">      
       <div class="carousel-caption d-none d-md-block">
-        <h2>{{b.title || b.overview}}</h2>
+        <h2>{{b.title}}</h2>
         <p class="parrafoPelicula">{{ truncatedOverview(b.overview, i) }}
           <span class="read-more" *ngIf="isOverMaxLength(b.overview, i)" (mouseenter)="toggleOverview(i)"
             (mouseleave)="toggleOverview(i)">
@@ -53,7 +53,7 @@
   </div>
   <div class="horizontal" #container>
     <ng-container *ngFor="let proximos of tendencias">
-      <div class="imagen">
+        <div class="imagen" (click)="detalle(proximos.media_type, proximos.id)">
         <img class="imaPopular" src="{{ proximos.posterPath }}" alt="">
       </div>
     </ng-container>

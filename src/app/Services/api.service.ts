@@ -1,8 +1,8 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders  } from '@angular/common/http';
 import { Observable, forkJoin, map } from 'rxjs';
 import { environment } from '../environment/environment';
-
+import { PeliculaData } from '../environment/PeliculaData';
 @Injectable({
   providedIn: 'root'
 })
@@ -16,6 +16,11 @@ bannerApiData(): Observable<any> {
 */
   bannerApiData(): Observable<any> {
     return this.http.get(`${environment.url2}`);
+  }
+
+  addPelicula(peliculaData: PeliculaData): Observable<PeliculaData> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post<PeliculaData>(`${environment.url2}`, peliculaData, { headers });
   }
 
   getMovies(number: number): Observable<any> {

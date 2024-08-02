@@ -1,0 +1,47 @@
+.background-container {
+    background-image: url('https://c4.wallpaperflare.com/wallpaper/621/859/641/peliculas-terror-wallpaper-preview.jpg');
+    background-size: cover; /* Ajusta la imagen para cubrir todo el contenedor */
+    background-position: center; 
+    background-repeat: no-repeat; 
+    width: 100%;
+    overflow: hidden; 
+    position: absolute; 
+    z-index: 1;
+    top: 0;
+    padding-bottom: 50px;
+    }
+    
+    .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Ajusta la opacidad según sea necesario */
+    }
+    
+    .container {
+    position: relative;
+    z-index: 1;
+    padding-top: 50px; /* Ajusta el padding según sea necesario */
+    }
+    
+    .card {
+    background-color: rgba(255, 255, 255, 0.9); /* Fondo blanco con opacidad */
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    .card-title {
+    color: #333;
+    }
+    
+    .btn-primary {
+    background-color: #0873ec;
+    border-color: #4a90e2;
+    margin: 0 auto;
+    }
+    
+    h2{
+      text-align: center;
+    }
