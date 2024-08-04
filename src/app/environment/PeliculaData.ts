@@ -1,26 +1,16 @@
 // pelicula.model.ts
 
-export class PeliculaData {
-  Title: string;
-  Overview: string;
-  ReleaseDate?: string;
-  PosterPath?: string;
-  BackdropPath?: string;
-  Rating?: number;
-  VoteCount?: number;
-  Duration?: number;
-  MovieGenres?: any[];
-
-  constructor(Title: string = '', Overview: string = '', ReleaseDate?: string, PosterPath?: string, BackdropPath?: string, Rating?: number, VoteCount?: number, Duration?: number, MovieGenres?: any[]) {
-      this.Title = Title;
-      this.Overview = Overview;
-      this.ReleaseDate = ReleaseDate;
-      this.PosterPath = PosterPath;
-      this.BackdropPath = BackdropPath;
-      this.Rating = Rating;
-      this.VoteCount = VoteCount;
-      this.Duration = Duration;
-      this.MovieGenres = MovieGenres;
-  }
+export interface PeliculaData {
+  movieId: number;  
+  title: string;
+  overview: string;
+  releaseDate?: string;
+  posterPath?: string;
+  backdropPath?: string;
+  rating?: number;
+  voteCount?: number;
+  duration?: number;
+  movieGenres?: { genreId: number }[]; // Asegúrate de que este campo coincida si es necesario
 }
+
   

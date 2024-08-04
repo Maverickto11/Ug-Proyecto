@@ -1,12 +1,14 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders  } from '@angular/common/http';
-import { Observable, forkJoin, map } from 'rxjs';
+import { Observable, forkJoin, map, tap, throwError } from 'rxjs';
 import { environment } from '../environment/environment';
 import { PeliculaData } from '../environment/PeliculaData';
+import { Genre } from '../environment/Genre';
 @Injectable({
   providedIn: 'root'
 })
 export class BuscadorPeliculasService {
+  private apiUrl = 'https://localhost:7169/api';
 
   constructor(private http: HttpClient) { }
 /* 
@@ -17,11 +19,37 @@ bannerApiData(): Observable<any> {
   bannerApiData(): Observable<any> {
     return this.http.get(`${environment.url2}`);
   }
-
+ 
   addPelicula(peliculaData: PeliculaData): Observable<PeliculaData> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post<PeliculaData>(`${environment.url2}`, peliculaData, { headers });
+    return this.http.post<PeliculaData>(`${environment.url2}`, peliculaData);
   }
+  getGenres(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/Genres`);  // Asegúrate de que la ruta aquí coincida con la ruta del controlador
+  }
+  
+
+
+  /*addGenresToMovie(movieId: number, genreId: number): Observable<void> {
+    return this.http.post<void>(`${this.apiUrl}/Genres/${movieId}/genres`, genreId);
+  }*/
+
+    addGenresToMovie(movieId: number, genreId: number): Observable<void> {
+  if (movieId === undefined || genreId === undefined) {
+    return throwError('movieId o genreId no definidos');
+  }
+  return this.http.post<void>(`${this.apiUrl}/Genres/${movieId}/genres`, genreId);
+}
+
+    
+    
+    
+
+    /*addGenresToMovie(movieId: number, genreIds: number[]): Observable<void> {
+      return this.http.post<void>(`${this.apiUrl}/Genres/${movieId}/genres`, genreIds);
+    }*/
+    
+  
 
   getMovies(number: number): Observable<any> {
     const url = `${environment.url}/discover/movie?api_key=${environment.apiKey}&page=${number}`;

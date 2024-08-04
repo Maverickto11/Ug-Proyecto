@@ -6,7 +6,7 @@
                 <div class="card mx-auto" style="max-width: 28rem;">
                     <div class="card-body">
                         <h2 class="card-title text-2xl font-bold mb-4">Registro de Película</h2>
-                        <form (ngSubmit)="addPelicula()" #peliculaForm="ngForm">
+                        <form (ngSubmit)="addPelicula(peliculaForm)" #peliculaForm="ngForm">
                             <!-- Título de la película -->
                             <div class="mb-3">
                                 <label for="titulo" class="form-label">Título</label>
@@ -19,33 +19,21 @@
                                 <textarea class="form-control" id="descripcion" name="descripcion" rows="4" required [(ngModel)]="Overview"></textarea>
                             </div>
 
-                            <!-- Género de la película -->
-                            <div class="mb-3">
-                                <label for="genero" class="form-label">Género</label>
-                                <select class="form-select" id="genero" name="genero" required>
-                                    <option value="" disabled selected>Selecciona un género</option>
-                                    <option value="Acción">Acción</option>
-                                    <option value="Aventura">Aventura</option>
-                                    <option value="Comedia">Comedia</option>
-                                    <option value="Drama">Drama</option>
-                                    <option value="Fantasía">Fantasía</option>
-                                    <option value="Ciencia Ficción">Ciencia Ficción</option>
-                                    <option value="Romance">Romance</option>
-                                    <option value="Terror">Terror</option>
-                                    <option value="Thriller">Thriller</option>
-                                    <option value="Animación">Animación</option>
-                                    <option value="Documental">Documental</option>
-                                    <option value="Otros">Otros</option>
-                                </select>
-                            </div>
+                          <!-- Género de la película -->
+                          <div class="mb-3">
+                            <label for="genero" class="form-label">Género</label>
+                            <select class="form-select" id="genero" name="genero" [(ngModel)]="selectedGenres" multiple>
+                              <option *ngFor="let genre of genres" [value]="genre.genreId">{{ genre.name }}</option>
+                            </select>
+                          </div>
+                          
+  
 
                             <!-- Trailer de la película -->
                             <div class="mb-3">
                                 <label for="trailer" class="form-label">Enlace al Trailer</label>
                                 <input type="url" class="form-control" id="trailer" name="trailer">
                             </div>
-
-        
 
                             <div class="mb-3">
                                 <label for="imagenOption" class="form-label">Seleccionar Imagen</label>
@@ -71,11 +59,10 @@
                                 <input type="text" class="form-control" id="imageLink" [(ngModel)]="PosterPath" name="imageLink">
                             </div>
                             
-
                             <!-- Botón de enviar -->
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                                 <button type="submit" class="btn btn-primary" [disabled]="peliculaForm.invalid">Registrar Película</button>
-                              </div>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -83,3 +70,4 @@
         </div>
     </div>
 </div>
+s
