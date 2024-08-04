@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders  } from '@angular/common/http';
-import { Observable, forkJoin, map, tap, throwError } from 'rxjs';
+import { Observable, catchError, forkJoin, map, of, tap, throwError } from 'rxjs';
 import { environment } from '../environment/environment';
 import { PeliculaData } from '../environment/PeliculaData';
 import { Genre } from '../environment/Genre';
@@ -41,7 +41,10 @@ bannerApiData(): Observable<any> {
   return this.http.post<void>(`${this.apiUrl}/Genres/${movieId}/genres`, genreId);
 }
 
-    
+login(credentials: { email: string, password: string }): Observable<any> {
+  return this.http.post<any>(`${this.apiUrl}/Login/login`, credentials);
+}
+
     
     
 

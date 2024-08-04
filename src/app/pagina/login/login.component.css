@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    font-family: 'Inter', sans-serif;
+  }
+  
+  input::placeholder {
+    color: #9CA3AF; /* Tailwind's text-gray-400 */
+  }
+  
+  button:focus {
+    box-shadow: 0 0 0 4px rgba(229, 9, 20, 0.5); /* Tailwind's focus-ring-red-600 */
+  }
