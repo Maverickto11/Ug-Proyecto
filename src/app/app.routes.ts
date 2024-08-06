@@ -4,7 +4,7 @@ import { DetallesComponent } from './pagina/detalles/detalles.component';
 import { BuscadorPeliculasComponent } from './pagina/buscador-peliculas/buscador-peliculas.component';
 
 export const routes: Routes = [
-    {path: '', redirectTo: 'inicio', pathMatch: 'full'},
+    {path: '', redirectTo: 'login', pathMatch: 'full'},
     {path: 'inicio', loadComponent: () => import('./pagina/homes/inicio/inicio.component')
     .then(m => m.InicioComponent)},
     {path: 'peliculas', loadComponent: () => import('./pagina/homes/home-pelicula/home-pelicula.component')
@@ -15,6 +15,8 @@ export const routes: Routes = [
         .then(m => m.RegistrarPeliculaComponent)},
     {path: 'login', loadComponent: () => import('./pagina/login/login.component')
         .then(m => m.LoginComponent)},
+    {path: 'register', loadComponent: () => import('./pagina/register/register.component')
+        .then(m => m.RegisterComponent)},
     { path: 'trailersPeliculas/:id', component: TrailersComponent, data: { tipo: 'movie' } },
     { path: 'trailersSeries/:id', component: TrailersComponent, data: { tipo: 'serie' } },
     { path: 'detallesPeliculas/:id', component: DetallesComponent, data: { tipo: 'movie' } },

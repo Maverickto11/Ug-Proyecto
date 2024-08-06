@@ -6,9 +6,8 @@
     height: 100%;  
     margin: 0; 
     font-family: Roboto, "Helvetica Neue", sans-serif; 
-    background-color: #171718
-
-
-    ;
+    background-color: #171718;
 }
-
+.hide-navbar nav {
+    display: none;
+  }

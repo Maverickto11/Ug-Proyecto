@@ -1,4 +1,4 @@
-nav.navbar{
+ nav.navbar{
   position: relative;
   z-index: 2; /* Asegura que el navbar esté sobre el carousel */
 

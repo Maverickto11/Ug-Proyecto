@@ -11,14 +11,12 @@
           </div>
           <button type="submit" class="w-full py-2 mt-6 font-semibold text-white bg-red-600 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-600">Sign In</button>
         </div>
-        @if(errorMessage){
-            <div class="mt-4 text-sm text-red-500">
-                {{ errorMessage }}
-            </div>
-        }
+        <div *ngIf="errorMessage" class="mt-4 text-sm text-red-500">
+            {{ errorMessage }}
+          </div>
         <div class="flex justify-between mt-4 text-sm text-gray-500">
           <a href="#" class="hover:underline">Need help?</a>
-          <a href="#" class="hover:underline">Sign up now</a>
+          <a [routerLink]="['/register']" class="hover:underline">Sign up now</a>
         </div>
       </form>
     </div>

@@ -2,12 +2,13 @@ import { Component } from '@angular/core';
 import { BuscadorPeliculasService } from '../../Services/api.service';
 import { NgForm } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule, RouterModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -34,5 +35,7 @@ export class LoginComponent {
       }
     );
   }
-  
+  goToRegister() {
+    this.router.navigate(['/register']);
+  }
 }
