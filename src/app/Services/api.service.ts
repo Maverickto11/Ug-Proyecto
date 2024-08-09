@@ -4,6 +4,7 @@ import { Observable, catchError, forkJoin, map, of, tap, throwError } from 'rxjs
 import { environment } from '../environment/environment';
 import { PeliculaData } from '../environment/PeliculaData';
 import { Genre } from '../environment/Genre';
+import { SerieData } from '../environment/SerieData';
 @Injectable({
   providedIn: 'root'
 })
@@ -24,6 +25,12 @@ export class BuscadorPeliculasService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post<PeliculaData>(`${environment.url2}`, peliculaData);
   }
+
+  addSerie(serieData: SerieData): Observable<SerieData> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post<SerieData>(`https://localhost:7169/api/Series`, serieData);
+  }
+
   getGenres(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/Genres`);  // Asegúrate de que la ruta aquí coincida con la ruta del controlador
   }
@@ -39,6 +46,13 @@ export class BuscadorPeliculasService {
       return throwError('movieId o genreId no definidos');
     }
     return this.http.post<void>(`${this.apiUrl}/Genres/${movieId}/genres`, genreId);
+  }
+
+  addGenresToSeries(seriesId: number, genreId: number): Observable<void> {
+    if (seriesId === undefined || genreId === undefined) {
+      return throwError('movieId o genreId no definidos');
+    }
+    return this.http.post<void>(`${this.apiUrl}/Genres/${seriesId}/genresSeries`, genreId);
   }
 
   login(credentials: { email: string, password: string }): Observable<any> {
@@ -61,10 +75,17 @@ export class BuscadorPeliculasService {
     return this.http.get<any>(url);
   }
 
-  getSeries(number: number): Observable<any> {
+  getSeries(): Observable<SerieData[]> {
+    return this.http.get<SerieData[]>(this.apiUrl + '/Series');
+  }
+
+  getDetallesSerie1(id: number): Observable<SerieData> {
+    return this.http.get<SerieData>(`${this.apiUrl}/Series/${id}`);
+  }
+  /*getSeries(number: number): Observable<any> {
     const url = `${environment.url}/discover/tv?api_key=${environment.apiKey}&page=${number}`;
     return this.http.get<any>(url);
-  }
+  }*/
 
   /*tendencias(): Observable<any> {
     const url = `${environment.url}/trending/all/day?api_key=${environment.apiKey}`;

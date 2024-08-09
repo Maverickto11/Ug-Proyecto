@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { TrailersComponent } from '../trailers/trailers.component';
+import { SerieData } from '../../environment/SerieData';
 
 @Component({
   selector: 'app-detalles',
@@ -14,19 +15,20 @@ import { TrailersComponent } from '../trailers/trailers.component';
   styleUrl: './detalles.component.css'
 })
 export class DetallesComponent implements OnInit {
+
   mostrarAviso: boolean = true;
   detalleGenero: any;
   currentDialogRef: MatDialogRef<any> | undefined;
   detalle: any;
   detallesPeli: string = '';
-  id: number | undefined;
+  seriesId: number | undefined;
   constructor(private api: BuscadorPeliculasService, private router: ActivatedRoute, public dialog: MatDialog, private route: Router) { }
 
   ngOnInit(): void {
     this.Detalles();
   }
 
-  private Detalles(): void {
+  /*private Detalles(): void {
     this.router.params.subscribe(params => {
       const id = +params['id']; // Convertir el ID a número
       const tipo = this.router.snapshot.data['tipo']; // Obtener el tipo de contenido de los datos de la ruta
@@ -39,14 +41,31 @@ export class DetallesComponent implements OnInit {
           });
       }
     });
-  }
+  }*/
+    private Detalles(): void {
+      this.router.params.subscribe(params => {
+        const id = +params['id']; // Convertir el ID a número
+        if (id) {
+          this.api.getDetallesSerie1(id).subscribe(
+            (result: SerieData) => {
+              this.detalle = result;
+              console.log('Detalles de la serie:', this.detalle);
+            },
+            error => {
+              console.error('Error al obtener los detalles de la serie', error);
+            }
+          );
+        }
+      });
+    }
+    
 
   portadaPelicula(): string {
-    return `https://image.tmdb.org/t/p/original${this.detalle.poster_path}`;
+    return `${this.detalle.posterPath}`;
   }
 
   fondoPelicula(): string {
-    return `https://image.tmdb.org/t/p/original${this.detalle.backdrop_path}`;
+    return `${this.detalle.backdropPath}`;
   }
 
   openModal(): void {
@@ -71,4 +90,5 @@ export class DetallesComponent implements OnInit {
   trailerSeries(id: number) {
     this.route.navigate(['trailersPeliculas', id]);
   }
+  
 }

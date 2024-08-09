@@ -3,6 +3,7 @@ import { BuscadorPeliculasService } from '../../../Services/api.service';
 import { CommonModule } from '@angular/common';
 import { PaginationComponent } from "../../pagination/pagination.component";
 import { Router } from '@angular/router';
+import { SerieData } from '../../../environment/SerieData';
 
 @Component({
     selector: 'app-series',
@@ -12,8 +13,29 @@ import { Router } from '@angular/router';
     imports: [CommonModule, PaginationComponent]
 })
 export class SeriesComponent implements OnInit{
+  series: SerieData[] = [];
   
-  totalPages: number = 1;
+  constructor(private api: BuscadorPeliculasService, private router: Router) { }
+
+  ngOnInit() {
+    this.api.getSeries().subscribe(
+      (response: any) => {
+        // Verifica si la respuesta contiene la propiedad $values y es un array
+        if (Array.isArray(response.$values)) {
+          this.series = response.$values;
+        } else {
+          console.error('La respuesta no contiene un arreglo de series:', response);
+        }
+      },
+      (error) => {
+        console.error('Error al obtener series', error);
+      }
+    );
+  }
+  detallesSeries(id: number) {
+    this.router.navigate(['detallesSeries', id]);
+  }
+ /* totalPages: number = 1;
   series: any[] = [];
   currentPage: number = 1;
   itemsPerRow: number = 4; // Define el número de columnas
@@ -76,6 +98,6 @@ export class SeriesComponent implements OnInit{
 
   detallesSeries(id: number) {
     this.router.navigate(['detallesSeries', id]);
-  }
+  }*/
 
 }

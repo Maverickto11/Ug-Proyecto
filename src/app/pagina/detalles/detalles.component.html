@@ -1,9 +1,9 @@
-<div class="container" *ngIf="detalle">
+ <div class="container" *ngIf="detalle">
     <div class="portada">
-        <img [src]="portadaPelicula()" alt="poster" class="img-fluid">
+        <img src="{{ detalle.posterPath }}" alt="poster" class="img-fluid">
     </div>
     <div class="descripcion">
-        <h3><b>{{detalle.title || detalle.original_name}}</b></h3>
+        <h3><b>{{detalle.title}}</b></h3>
         <p><strong>Descripción:</strong>{{detalle.overview}}</p>
         <p><strong>Fecha de lanzamiento:</strong> {{detalle.release_date || detalle.first_air_date}}</p>
         <p><strong>Calificación:</strong> {{detalle.vote_average.toFixed(1)}}</p>
@@ -17,4 +17,4 @@
 </div>
 <div class="fondo">
     <img [src]="fondoPelicula()" alt="fondo" class="img-fluid">
-</div>
+</div> 

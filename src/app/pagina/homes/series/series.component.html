@@ -1,8 +1,8 @@
-    <div class="container">
-    <div *ngFor="let row of chunk(series, itemsPerRow)" class="row">
+    <!-- <div class="container">
+    <div *ngFor="let row of series, itemsPerRow" class="row">
         <div class="col-md-3" *ngFor="let serie of row">
-            <div class="card" (click)="detallesSeries(serie.id)">
-                <img class="card-img-top" [src]="getSeriesImageUrl(serie)"
+            <div class="card" (click)="detallesSeries(serie.seriesId)">
+                <img class="card-img-top" src="{{ serie.posterPath }}"
                     alt="Movie Poster">
             </div>
         </div>
@@ -11,4 +11,17 @@
         <app-pagination [totalPages]="totalPages" [currentPage]="currentPage" (pageChange)="changePage($event)">
         </app-pagination>
     </div>
-</div>
+</div> -->
+
+<!-- series-list.component.html -->
+<div class="container">
+    <div *ngFor="let row of series, itemsPerRow" class="row">
+        <div class="col-md-3" *ngFor="let serie of series">
+            <div class="card" (click)="detallesSeries(serie.seriesId)">
+                <img class="card-img-top" src="{{ serie.posterPath }}"
+                    alt="Movie Poster">
+            </div>
+        </div>
+    </div>
+    
+  

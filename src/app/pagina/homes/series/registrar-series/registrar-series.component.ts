@@ -1,35 +1,37 @@
 import { Component } from '@angular/core';
-import { CommonModule,  } from '@angular/common';
-import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
-import { NgModule } from '@angular/core';
+import { Genre } from '../../../../environment/Genre';
+import { BuscadorPeliculasService } from '../../../../Services/api.service';
+import { SerieData } from '../../../../environment/SerieData';
 import { FormsModule } from '@angular/forms';
-import { PeliculaData } from '../../../environment/PeliculaData';
-import { BuscadorPeliculasService } from '../../../Services/api.service';
-import { Genre } from '../../../environment/Genre';
+import { CommonModule } from '@angular/common';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-registrar-pelicula',
+  selector: 'app-registrar-series',
   standalone: true,
   imports: [CommonModule, FormsModule, RouterModule],
-  templateUrl: './registrar-pelicula.component.html',
-  styleUrl: './registrar-pelicula.component.css'
+  templateUrl: './registrar-series.component.html',
+  styleUrl: './registrar-series.component.css'
 })
-export class RegistrarPeliculaComponent {
+export class RegistrarSeriesComponent {
   Title: string = '';
   Overview: string = '';
-  ReleaseDate?: string;
-  PosterPath?: string;
+  ReleaseDate?: Date;
+  PosterPath: string = '';
   BackdropPath?: string;
   Rating?: number;
   VoteCount?: number;
-  Duration?: number;
-  MovieGenres: any[] = [];
+  NumberOfSeasons?: number;
+  NumberOfEpisodes?: number;
+  Trailer?: string;
+  Tipo?: string;
+  SeriesGenres: any[] = [];
   selectedGenres: number[] = []; // Para almacenar los IDs de los géneros seleccionados
   imageOption: string = 'upload'; // Default option
   genres: Genre[] = [];
   genreService: any;
-  MovieId?: number;
+  SeriesId?: number;
 
   constructor(private api: BuscadorPeliculasService) {
    }
@@ -49,10 +51,9 @@ export class RegistrarPeliculaComponent {
     );
   }
 
-
-  addPelicula(form: NgForm) {
-    const peli: PeliculaData = {
-      movieId: this.MovieId ?? 0,  // Proporciona un valor predeterminado si es undefined
+  addSerie() {
+    const serie: SerieData = {
+      seriesId: this.SeriesId ?? 0,  // Proporciona un valor predeterminado si es undefined
       title: this.Title,
       overview: this.Overview,
       releaseDate: this.ReleaseDate,
@@ -60,26 +61,27 @@ export class RegistrarPeliculaComponent {
       backdropPath: this.BackdropPath,
       rating: this.Rating,
       voteCount: this.VoteCount,
-      duration: this.Duration,
-      movieGenres: this.selectedGenres.map((genreId) => ({ genreId: genreId }))
+      numberOfSeasons: this.NumberOfSeasons,
+      numberOfEpisodes: this.NumberOfEpisodes,
+      trailer: this.Trailer,
+      tipo: this.Tipo,
+      seriesGenres: this.selectedGenres.map((genreId) => ({ genreId }))
     };
-  
-    this.api.addPelicula(peli).subscribe(
-      (response: PeliculaData) => {
-        console.log('Película añadida exitosamente', response);
-        
-        // Asegúrate de que response.movieId esté definido
-        if (response.movieId !== undefined) {
-          console.log('MovieId encontrado:', response.movieId);
+
+    this.api.addSerie(serie).subscribe(
+      (response) => {
+        console.log('Serie añadida:', response);
+        if (response.seriesId !== undefined) {
+          console.log('SerieId encontrado:', response.seriesId);
           this.selectedGenres.forEach((genreId) => {
             // Asegúrate de que genreId no sea undefined
             if (genreId !== undefined) {
-              this.api.addGenresToMovie(response.movieId, genreId).subscribe(
+              this.api.addGenresToSeries(response.seriesId, genreId).subscribe(
                 () => {
-                  console.log('Género añadido a la película');
+                  console.log('Género añadido a la Serie');
                   this.resetForm();
                 },
-                error => console.error('Error al añadir género a la película', error)
+                error => console.error('Error al añadir género a la Serie', error)
               );
             } else {
               console.error('Id de género no definido');
@@ -89,27 +91,24 @@ export class RegistrarPeliculaComponent {
           console.error('MovieId no encontrado en la respuesta');
         }
       },
-      error => console.error('Error al añadir película', error)
+      error => console.error('Error al añadir Serie', error)
     );
   }
-  
-  
-  
 
-  
-  
-  private resetForm() {
+  resetForm() {
     this.Title = '';
     this.Overview = '';
     this.ReleaseDate = undefined;
-    this.PosterPath = undefined;
-    this.BackdropPath = undefined;
+    this.PosterPath = '';
+    this.BackdropPath = '';
     this.Rating = undefined;
     this.VoteCount = undefined;
-    this.Duration = undefined;
-    this.MovieGenres = [];
+    this.NumberOfSeasons = undefined;
+    this.NumberOfEpisodes = undefined;
+    this.Trailer = '';
+    this.Tipo = '';
+    this.SeriesGenres = [];
     this.selectedGenres = [];
-
   }
 
   onFileSelected(event: any) {
@@ -122,6 +121,5 @@ export class RegistrarPeliculaComponent {
       reader.readAsDataURL(file);
     }
   }
-  
-}
 
+}

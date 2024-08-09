@@ -17,6 +17,8 @@ export const routes: Routes = [
         .then(m => m.LoginComponent)},
     {path: 'register', loadComponent: () => import('./pagina/register/register.component')
         .then(m => m.RegisterComponent)},
+    {path: 'registroSeries', loadComponent: () => import('./pagina/homes/series/registrar-series/registrar-series.component')
+        .then(m => m.RegistrarSeriesComponent)},
     { path: 'trailersPeliculas/:id', component: TrailersComponent, data: { tipo: 'movie' } },
     { path: 'trailersSeries/:id', component: TrailersComponent, data: { tipo: 'serie' } },
     { path: 'detallesPeliculas/:id', component: DetallesComponent, data: { tipo: 'movie' } },
