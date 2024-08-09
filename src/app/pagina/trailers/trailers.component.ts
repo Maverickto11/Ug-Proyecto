@@ -54,7 +54,7 @@ export class TrailersComponent implements OnInit{
 
   private setVideoIframe(trailerKey: string): void {
     // Construir la URL del video de YouTube
-    this.videoUrl = 'https://www.youtube.com/embed/' + trailerKey + '?autoplay=1';
+    this.videoUrl = trailerKey + '?autoplay=1';
     // Sanitizar la URL para evitar problemas de seguridad
     this.safeURL = this.sanitizer.bypassSecurityTrustResourceUrl(this.videoUrl);
   }

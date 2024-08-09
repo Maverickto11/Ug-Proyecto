@@ -5,6 +5,7 @@ import { Params, Router } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { PaginationComponent } from "../../pagination/pagination.component";
 import { TrailersComponent } from '../../trailers/trailers.component';
+import { PeliculaData } from '../../../environment/PeliculaData';
 
 @Component({
     selector: 'app-home-pelicula',
@@ -15,7 +16,7 @@ import { TrailersComponent } from '../../trailers/trailers.component';
 })
 export class HomePeliculaComponent implements OnInit {
 
-  movies: any[] = [];
+  movies: PeliculaData[] = [];
   itemsPerRow: number = 4; // Define el número de columnas
   totalPages: number = 1;
   currentPage: number = 1;
@@ -23,11 +24,27 @@ export class HomePeliculaComponent implements OnInit {
   selectedMovieId: number = 0;
   constructor(private api: BuscadorPeliculasService, private router: Router) { }
 
-  ngOnInit(): void {
-    this.getMovies(this.currentPage);
+  ngOnInit() {
+    this.api.getMovies().subscribe(
+      (response: any) => {
+        // Verifica si la respuesta contiene la propiedad $values y es un array
+        if (Array.isArray(response.$values)) {
+          this.movies = response.$values;
+        } else {
+          console.error('La respuesta no contiene un arreglo de series:', response);
+        }
+      },
+      (error) => {
+        console.error('Error al obtener series', error);
+      }
+    );
   }
 
-  getMovies(pageNumber: number): void {
+  detalles(id: number) {
+    this.router.navigate(['detallesPeliculas', id]);
+  }
+
+  /*getMovies(pageNumber: number): void {
     this.api.getMovies(pageNumber).subscribe(
       (result: { results: any[], total_pages: number }) => {
         this.movies = result.results;
@@ -39,9 +56,9 @@ export class HomePeliculaComponent implements OnInit {
         console.error('Error fetching movies:', error);
       }
     );
-  }
+  }*/
 
-  preloadImages(): void {
+  /*preloadImages(): void {
     const adjacentPages = [this.currentPage - 1, this.currentPage, this.currentPage + 1];
     adjacentPages.forEach(page => {
       if (page >= 1 && page <= this.totalPages) {
@@ -82,6 +99,6 @@ export class HomePeliculaComponent implements OnInit {
 
   detalles(id: number) {
     this.router.navigate(['detallesPeliculas', id]);
-  }
+  }*/
 
 }

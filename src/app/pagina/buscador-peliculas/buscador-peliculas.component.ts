@@ -50,7 +50,7 @@ export class BuscadorPeliculasComponent implements OnInit{
   }
 
   obtenerDetallePelicula() {
-    this.api.getDetallesPelicula(this.idPelicula).subscribe(
+    this.api.getDetallesMovie1(this.idPelicula).subscribe(
       (data: any) => {
         this.detallesPelicula = data;
         // Aquí puedes asignar los detalles de la película a una variable para mostrar en la plantilla HTML

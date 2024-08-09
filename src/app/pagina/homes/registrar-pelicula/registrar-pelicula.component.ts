@@ -24,6 +24,7 @@ export class RegistrarPeliculaComponent {
   Rating?: number;
   VoteCount?: number;
   Duration?: number;
+  Trailer?: string;
   MovieGenres: any[] = [];
   selectedGenres: number[] = []; // Para almacenar los IDs de los géneros seleccionados
   imageOption: string = 'upload'; // Default option
@@ -61,6 +62,7 @@ export class RegistrarPeliculaComponent {
       rating: this.Rating,
       voteCount: this.VoteCount,
       duration: this.Duration,
+      Trailer: this.Trailer,  
       movieGenres: this.selectedGenres.map((genreId) => ({ genreId: genreId }))
     };
   
@@ -107,6 +109,7 @@ export class RegistrarPeliculaComponent {
     this.Rating = undefined;
     this.VoteCount = undefined;
     this.Duration = undefined;
+    this.Trailer = undefined;
     this.MovieGenres = [];
     this.selectedGenres = [];
 
@@ -122,6 +125,7 @@ export class RegistrarPeliculaComponent {
       reader.readAsDataURL(file);
     }
   }
+  
   
 }
 

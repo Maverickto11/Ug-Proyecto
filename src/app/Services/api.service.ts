@@ -70,11 +70,14 @@ export class BuscadorPeliculasService {
 
 
 
-  getMovies(number: number): Observable<any> {
+  /*getMovies(number: number): Observable<any> {
     const url = `${environment.url}/discover/movie?api_key=${environment.apiKey}&page=${number}`;
     return this.http.get<any>(url);
-  }
-
+  }*/
+    getMovies(): Observable<SerieData[]> {
+      return this.http.get<SerieData[]>(this.apiUrl + '/Movie');
+    }
+  
   getSeries(): Observable<SerieData[]> {
     return this.http.get<SerieData[]>(this.apiUrl + '/Series');
   }
@@ -82,6 +85,17 @@ export class BuscadorPeliculasService {
   getDetallesSerie1(id: number): Observable<SerieData> {
     return this.http.get<SerieData>(`${this.apiUrl}/Series/${id}`);
   }
+
+  getDetallesMovie1(id: number): Observable<PeliculaData> {
+    return this.http.get<PeliculaData>(`${this.apiUrl}/Movie/${id}`);
+  }
+
+  // En el servicio (BuscadorPeliculasService)
+/*getDetalles(id: number, tipo: 'movie' | 'serie'): Observable<SerieData | PeliculaData> {
+  const url = tipo === 'movie' ? `${this.apiUrl}/Movie/${id}` : `${this.apiUrl}/Series/${id}`;
+  return this.http.get<SerieData | PeliculaData>(url);
+}*/
+
   /*getSeries(number: number): Observable<any> {
     const url = `${environment.url}/discover/tv?api_key=${environment.apiKey}&page=${number}`;
     return this.http.get<any>(url);
@@ -107,10 +121,10 @@ export class BuscadorPeliculasService {
     return this.http.get<any>(url);
   }
 
-  getDetallesPelicula(id: number): Observable<any> {
+  /*getDetallesPelicula(id: number): Observable<any> {
     const url = `${environment.url}/movie/${id}?api_key=${environment.apiKey}`;
     return this.http.get<any>(url);
-  }
+  }*/
 
   getDetallesSerie(id: number): Observable<any> {
     const url = `${environment.url}/tv/${id}?api_key=${environment.apiKey}`;
@@ -179,7 +193,7 @@ export class BuscadorPeliculasService {
     );
   }
 
-  buscarAction(idGenero: string, busqueda: string): Observable<{ title: string, imageUrl: string, id: number, tipo: string }[]> {
+  /*buscarAction(idGenero: string, busqueda: string): Observable<{ title: string, imageUrl: string, id: number, tipo: string }[]> {
     const peliculasTerrorUrl = `${environment.url}/discover/movie?api_key=${environment.apiKey}&with_genres=${idGenero}&query=${busqueda}`;
     const seriesTerrorUrl = `${environment.url}/discover/tv?api_key=${environment.apiKey}&with_genres=${idGenero}&query=${busqueda}`;
 
@@ -214,5 +228,19 @@ export class BuscadorPeliculasService {
         return [...peliculas, ...series];
       })
     );
+  }*/
+
+
+
+  getFavorites(userId: number): Observable<any> {
+    return this.http.get(`https://localhost:7169/api/Favorites/${userId}`);
+  }
+
+  addFavorite(favorite: any): Observable<any> {
+    return this.http.post(`https://localhost:7169/api/Favorites`, favorite);
+  }
+
+  removeFavorite(userId: number, movieId: number): Observable<any> {
+    return this.http.delete(`https://localhost:7169/api/Favorites/${userId}/${movieId}`);
   }
 }

@@ -9,6 +9,7 @@ export interface PeliculaData {
   backdropPath?: string;
   rating?: number;
   voteCount?: number;
+  Trailer?: string;
   duration?: number;
   movieGenres?: { genreId: number }[]; // Asegúrate de que este campo coincida si es necesario
 }

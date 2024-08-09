@@ -5,5 +5,8 @@ export const environment = {
 
     url2: 'https://localhost:7169/api/Movie',
     
-    url3: 'https://localhost:7169/api/Genre'
+    url3: 'https://localhost:7169/api/Genre',
+
+    url4: 'https://localhost:7169/api/Favorite'
+
 };

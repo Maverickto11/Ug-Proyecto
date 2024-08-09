@@ -1,21 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { BuscadorPeliculasService } from '../../Services/api.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { TrailersComponent } from '../trailers/trailers.component';
-import { SerieData } from '../../environment/SerieData';
-import { PeliculaData } from '../../environment/PeliculaData';
+import { BuscadorPeliculasService } from '../../../Services/api.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { PeliculaData } from '../../../environment/PeliculaData';
+import { TrailersComponent } from '../../trailers/trailers.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-detalles',
+  selector: 'app-detalle-movie',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './detalles.component.html',
-  styleUrl: './detalles.component.css'
+  templateUrl: './detalle-movie.component.html',
+  styleUrl: './detalle-movie.component.css'
 })
-export class DetallesComponent implements OnInit {
+export class DetalleMovieComponent implements OnInit{
   isFavorite: boolean = false;
   userId: number = 1;
 
@@ -51,13 +49,13 @@ export class DetallesComponent implements OnInit {
       this.router.params.subscribe(params => {
         const id = +params['id']; // Convertir el ID a número
         if (id) {
-          this.api.getDetallesSerie1(id).subscribe(
-            (result: SerieData) => {
+          this.api.getDetallesMovie1(id).subscribe(
+            (result: PeliculaData) => {
               this.detalle = result;
-              console.log('Detalles de la serie:', this.detalle);
+              console.log('Detalles de la Movie:', this.detalle);
             },
             error => {
-              console.error('Error al obtener los detalles de la serie', error);
+              console.error('Error al obtener los detalles de la Movie', error);
             }
           );
         }
@@ -79,17 +77,8 @@ export class DetallesComponent implements OnInit {
       width: 'auto',
       height: 'auto',
       autoFocus: false,
-      data: { id: this.detalle.id, tipo: this.router.snapshot.data['tipo'] } // Pasa la ID y el tipo al abrir el modal
+      data: { id: this.detalle.movieId, tipo: this.router.snapshot.data['tipo'] } // Pasa la ID y el tipo al abrir el modal
     });
-  }
-  
-
-  closeModal(): void {
-    // Cierra el modal si existe
-    if (this.currentDialogRef) {
-      this.currentDialogRef.close();
-      this.currentDialogRef = undefined; // Limpia la referencia
-    }
   }
   openTrailer(): void {
     if (this.detalle && this.detalle.trailer) {
@@ -100,9 +89,14 @@ export class DetallesComponent implements OnInit {
     }
   }
 
+  closeModal(): void {
+    // Cierra el modal si existe
+    if (this.currentDialogRef) {
+      this.currentDialogRef.close();
+      this.currentDialogRef = undefined; // Limpia la referencia
+    }
+  }
 
-  
-  
   trailerSeries(id: number) {
     this.route.navigate(['trailersPeliculas', id]);
   }
@@ -116,21 +110,21 @@ export class DetallesComponent implements OnInit {
       // Lógica para verificar si la película está en favoritos
       this.api.getFavorites(this.userId).subscribe(favorites => {
         const favoriteItems = favorites.$values || favorites; // Accede a los valores si están en $values
-        this.isFavorite = favoriteItems.some((f: { movieId: any; }) => f.movieId === this.detalle.seriesId);
+        this.isFavorite = favoriteItems.some((f: { movieId: any; }) => f.movieId === this.detalle.movieId);
       });
     }
     
  toggleFavorite(): void {
   console.log('Current isFavorite:', this.isFavorite);
   if (this.isFavorite) {
-    this.api.removeFavorite(this.userId, this.detalle.seriesId).subscribe(() => {
+    this.api.removeFavorite(this.userId, this.detalle.movieId).subscribe(() => {
       this.isFavorite = true;
       console.log('Removed from favorites');
     });
   } else {
     const favorite = {
       userId: this.userId,
-      movieId: this.detalle.seriesId,
+      movieId: this.detalle.movieId,
       movieTitle: this.detalle.title,
       posterPath: this.detalle.posterPath,
     };

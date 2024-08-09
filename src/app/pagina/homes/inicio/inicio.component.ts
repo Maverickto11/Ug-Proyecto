@@ -37,8 +37,8 @@ export class InicioComponent implements OnInit {
     this.startAutoPlay();
     this.getPopularPeliculas();
     this.gettendencias();
-    this.buscarPeliculasDeTerror();
-    this.buscarPeliculasDeAction();
+   // this.buscarPeliculasDeTerror();
+    //this.buscarPeliculasDeAction();
   }
 
   ngOnDestroy() {
@@ -150,7 +150,7 @@ export class InicioComponent implements OnInit {
   }
   
 
-  buscarPeliculasDeTerror() {
+  /*buscarPeliculasDeTerror() {
     const busqueda = 'Horror';
     const idGenero = '27'; // Convert the number array to a string array
     this.api.buscarTerror(idGenero ,busqueda).subscribe(
@@ -165,9 +165,9 @@ export class InicioComponent implements OnInit {
         // Maneja el error según sea necesario
       }
     );
-  }
+  }*/
 
-  buscarPeliculasDeAction() {
+  /*buscarPeliculasDeAction() {
     const busqueda = 'Action';
     const idGenero = '28'; 
     this.api.buscarAction(idGenero ,busqueda).subscribe(
@@ -182,5 +182,5 @@ export class InicioComponent implements OnInit {
         // Maneja el error según sea necesario
       }
     );
-  }
+  }*/
 }

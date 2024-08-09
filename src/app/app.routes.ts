@@ -1,6 +1,7 @@
 import { RouterModule, Routes } from '@angular/router';
 import { TrailersComponent } from './pagina/trailers/trailers.component';
 import { DetallesComponent } from './pagina/detalles/detalles.component';
+import { DetalleMovieComponent } from './pagina/detalles/detalle-movie/detalle-movie.component';
 import { BuscadorPeliculasComponent } from './pagina/buscador-peliculas/buscador-peliculas.component';
 
 export const routes: Routes = [
@@ -21,7 +22,7 @@ export const routes: Routes = [
         .then(m => m.RegistrarSeriesComponent)},
     { path: 'trailersPeliculas/:id', component: TrailersComponent, data: { tipo: 'movie' } },
     { path: 'trailersSeries/:id', component: TrailersComponent, data: { tipo: 'serie' } },
-    { path: 'detallesPeliculas/:id', component: DetallesComponent, data: { tipo: 'movie' } },
+    { path: 'detallesPeliculas/:id', component: DetalleMovieComponent, data: { tipo: 'movie' } },
     { path: 'detallesSeries/:id', component: DetallesComponent, data: { tipo: 'serie' } },
     { path: 'buscador', loadComponent: () => import('./pagina/buscador-peliculas/buscador-peliculas.component')
     .then(m => m.BuscadorPeliculasComponent)},
