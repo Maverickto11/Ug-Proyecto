@@ -29,12 +29,16 @@
    
   }
 
+#boton{
+border: transparent;
+background-color: transparent;
+margin-left: 120vh;
+}
+
 .genero {
-    margin-top: 10px;
-    margin-left: 270px;
-    text-align: center;
-    display: flex;
-    flex-direction: row;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
 }
 
 .listaGenero {
@@ -55,27 +59,11 @@
     position: relative;
     margin-top: 20px;
 }
-/* Esto es opcional si necesitas estilos adicionales personalizados */
 
-  
-.favorite-btn {
-    padding: 10px 20px;
-    border: 2px solid #dc3545;
-    background-color: transparent;
-    color: #dc3545;
-    font-weight: bold;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
-  }
-  
-  .favorite-btn.active {
-    background-color: #dc3545;
-    color: #fff;
-  }
-  
-  .favorite-btn:hover {
-    background-color: #c82333;
-    color: #fff;
-  }
+
+.favorite-btn:hover {
+  background-color: #fff;
+  color: #fff;
+}
+
   

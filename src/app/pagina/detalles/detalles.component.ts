@@ -47,6 +47,23 @@ export class DetallesComponent implements OnInit {
       }
     });
   }*/
+  /*private Detalles(): void {
+    this.router.params.subscribe(params => {
+      const id = +params['id']; // Convertir el ID a número
+      if (id) {
+        this.api.getDetallesSerie1(id).subscribe(
+          (result: SerieData) => {
+            this.detalle = result;
+            console.log('Detalles de la serie:', this.detalle);
+          },
+          error => {
+            console.error('Error al obtener los detalles de la serie', error);
+          }
+        );
+      }
+    });
+  }*/
+
     private Detalles(): void {
       this.router.params.subscribe(params => {
         const id = +params['id']; // Convertir el ID a número
@@ -54,24 +71,33 @@ export class DetallesComponent implements OnInit {
           this.api.getDetallesSerie1(id).subscribe(
             (result: SerieData) => {
               this.detalle = result;
-              console.log('Detalles de la serie:', this.detalle);
+              console.log('Detalles de la Movie:', this.detalle);
+              
+              // Extraer y mostrar nombres de géneros
+              if (this.detalle?.seriesGenres?.$values) {
+            //    const genreNames = this.detalle.movieGenres.$values.map((sg: SerieData) => sg.genre.name);
+           //     console.log('Géneros de la película:', genreNames);
+              } else {
+                console.log('No se encontraron géneros para esta película.');
+              }
             },
             error => {
-              console.error('Error al obtener los detalles de la serie', error);
+              console.error('Error al obtener los detalles de la Movie', error);
             }
           );
         }
       });
-    } 
-    
+    }
+
 
   portadaPelicula(): string {
-    return `${this.detalle.posterPath}`;
+    return this.detalle?.posterPath || '';  // Devuelve una cadena vacía si detalle o posterPath son undefined
   }
 
   fondoPelicula(): string {
-    return `${this.detalle.backdropPath}`;
+    return this.detalle?.backdropPath || '';  // Devuelve una cadena vacía si detalle o backdropPath son undefined
   }
+
 
   openModal(): void {
     this.mostrarAviso = false;
@@ -82,7 +108,7 @@ export class DetallesComponent implements OnInit {
       data: { id: this.detalle.id, tipo: this.router.snapshot.data['tipo'] } // Pasa la ID y el tipo al abrir el modal
     });
   }
-  
+
 
   closeModal(): void {
     // Cierra el modal si existe
@@ -101,8 +127,8 @@ export class DetallesComponent implements OnInit {
   }
 
 
-  
-  
+
+
   trailerSeries(id: number) {
     this.route.navigate(['trailersPeliculas', id]);
   }
@@ -112,33 +138,33 @@ export class DetallesComponent implements OnInit {
       this.isFavorite = favorites.some((f: { movieId: any; }) => f.movieId === this.detalle.seriesId);
     });
   }*/
-    checkIfFavorite(): void {
-      // Lógica para verificar si la película está en favoritos
-      this.api.getFavorites(this.userId).subscribe(favorites => {
-        const favoriteItems = favorites.$values || favorites; // Accede a los valores si están en $values
-        this.isFavorite = favoriteItems.some((f: { movieId: any; }) => f.movieId === this.detalle.seriesId);
-      });
-    }
-    
- toggleFavorite(): void {
-  console.log('Current isFavorite:', this.isFavorite);
-  if (this.isFavorite) {
-    this.api.removeFavorite(this.userId, this.detalle.seriesId).subscribe(() => {
-      this.isFavorite = true;
-      console.log('Removed from favorites');
-    });
-  } else {
-    const favorite = {
-      userId: this.userId,
-      movieId: this.detalle.seriesId,
-      movieTitle: this.detalle.title,
-      posterPath: this.detalle.posterPath,
-    };
-    this.api.addFavorite(favorite).subscribe(() => {
-      this.isFavorite = true;
-      console.log('Added to favorites');
+  checkIfFavorite(): void {
+    // Lógica para verificar si la película está en favoritos
+    this.api.getFavorites(this.userId).subscribe(favorites => {
+      const favoriteItems = favorites.$values || favorites; // Accede a los valores si están en $values
+      this.isFavorite = favoriteItems.some((f: { movieId: any; }) => f.movieId === this.detalle.seriesId);
     });
   }
-}
 
+  toggleFavorite(): void {
+    console.log('Current isFavorite:', this.isFavorite);
+    if (this.isFavorite) {
+      this.api.removeFavorite(this.userId, this.detalle.seriesId).subscribe(() => {
+        this.isFavorite = false; // Cambia el estado a false cuando se elimina el favorito
+        console.log('Removed from favorites');
+      });
+    } else {
+      const favorite = {
+        userId: this.userId,
+        movieId: this.detalle.seriesId,
+        movieTitle: this.detalle.title,
+        posterPath: this.detalle.posterPath,
+      };
+      this.api.addFavorite(favorite).subscribe(() => {
+        this.isFavorite = true; // Cambia el estado a true cuando se agrega el favorito
+        console.log('Added to favorites');
+      });
+    }
+  }
+  
 }

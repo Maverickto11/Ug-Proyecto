@@ -14,7 +14,8 @@ import { SerieData } from '../../../environment/SerieData';
 })
 export class SeriesComponent implements OnInit{
   series: SerieData[] = [];
-  
+  itemsPerRow: number = 4; // Define el número de columnas
+
   constructor(private api: BuscadorPeliculasService, private router: Router) { }
 
   ngOnInit() {
@@ -30,6 +31,12 @@ export class SeriesComponent implements OnInit{
       (error) => {
         console.error('Error al obtener series', error);
       }
+    );
+  }
+
+  chunk(array: any[], size: number): any[][] {
+    return Array.from({ length: Math.ceil(array.length / size) }, (_, index) =>
+      array.slice(index * size, index * size + size)
     );
   }
   detallesSeries(id: number) {

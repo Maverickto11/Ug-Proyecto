@@ -89,7 +89,10 @@ export class BuscadorPeliculasService {
   getDetallesMovie1(id: number): Observable<PeliculaData> {
     return this.http.get<PeliculaData>(`${this.apiUrl}/Movie/${id}`);
   }
-
+   
+    
+   
+  
   // En el servicio (BuscadorPeliculasService)
 /*getDetalles(id: number, tipo: 'movie' | 'serie'): Observable<SerieData | PeliculaData> {
   const url = tipo === 'movie' ? `${this.apiUrl}/Movie/${id}` : `${this.apiUrl}/Series/${id}`;

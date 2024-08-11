@@ -1,4 +1,9 @@
+
+import { Genre } from "./Genre";
+import { MovieGenre } from "./MovieGenre";
+
 export interface SerieData {
+  [x: string]: any;
     seriesId: number;
   title: string;
   releaseDate?: Date;
@@ -11,6 +16,6 @@ export interface SerieData {
   numberOfEpisodes?: number;
   trailer?: string;
   tipo?: string;
-  seriesGenres?: { genreId: number }[]; // Asegúrate de que este campo coincida si es necesario
+  movieGenres?: MovieGenre[];
 
   }

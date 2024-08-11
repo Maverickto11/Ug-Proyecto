@@ -38,6 +38,11 @@ export class HomePeliculaComponent implements OnInit {
         console.error('Error al obtener series', error);
       }
     );
+  } 
+  chunk(array: any[], size: number): any[][] {
+    return Array.from({ length: Math.ceil(array.length / size) }, (_, index) =>
+      array.slice(index * size, index * size + size)
+    );
   }
 
   detalles(id: number) {

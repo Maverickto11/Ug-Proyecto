@@ -48,6 +48,10 @@
                     <input type="text" id="imageLink" [(ngModel)]="PosterPath" name="imageLink" class="w-full px-4 py-2 text-white placeholder-gray-500 bg-gray-800 border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600" placeholder="Enlace de Imagen">
                 </div>
 
+                <div>
+                    <input type="url" id="imagen" [(ngModel)]="BackdropPath" name="imagen" class="w-full px-4 py-2 text-white placeholder-gray-500 bg-gray-800 border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600" placeholder="Enlace de Imagen">
+                </div>
+
                 <!-- Botón de enviar -->
                 <div class="flex justify-end">
                     <button type="submit" class="w-full py-2 font-semibold text-white bg-red-600 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-600" [disabled]="peliculaForm.invalid">Registrar Película</button>

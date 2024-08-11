@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TrackByFunction } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { BuscadorPeliculasService } from '../../../Services/api.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PeliculaData } from '../../../environment/PeliculaData';
 import { TrailersComponent } from '../../trailers/trailers.component';
 import { CommonModule } from '@angular/common';
+import { MovieGenre } from '../../../environment/MovieGenre';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-detalle-movie',
@@ -13,7 +15,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './detalle-movie.component.html',
   styleUrl: './detalle-movie.component.css'
 })
-export class DetalleMovieComponent implements OnInit{
+export class DetalleMovieComponent implements OnInit {
   isFavorite: boolean = false;
   userId: number = 1;
 
@@ -23,7 +25,13 @@ export class DetalleMovieComponent implements OnInit{
   detalle: any;
   detallesPeli: string = '';
   seriesId: number | undefined;
-  constructor(private api: BuscadorPeliculasService, private router: ActivatedRoute, public dialog: MatDialog, private route: Router) { }
+  constructor(
+    private api: BuscadorPeliculasService, 
+    private router: ActivatedRoute, 
+    public dialog: MatDialog, 
+    private route: Router,
+    private cdr: ChangeDetectorRef
+  ) { }
 
   ngOnInit(): void {
     this.Detalles();
@@ -31,17 +39,23 @@ export class DetalleMovieComponent implements OnInit{
 
   }
 
-  /*private Detalles(): void {
+
+
+ /* private Detalles(): void {
     this.router.params.subscribe(params => {
       const id = +params['id']; // Convertir el ID a número
-      const tipo = this.router.snapshot.data['tipo']; // Obtener el tipo de contenido de los datos de la ruta
-      if(id && tipo){
-        const apiDetalles = (tipo === 'movie') ? this.api.getDetallesPelicula(id) : this.api.getDetallesSerie(id);
-        apiDetalles.subscribe(
-          (result: any[]) => {
+      if (id) {
+        this.api.getDetallesMovie1(id).subscribe(
+          (result: PeliculaData) => {
             this.detalle = result;
-           console.log(this.detalle);
-          });
+            console.log('Detalles de la Movie:', this.detalle);
+            console.log('Géneros de la película:', this.detalle?.movieGenres?.$values);
+
+          },
+          error => {
+            console.error('Error al obtener los detalles de la Movie', error);
+          }
+        );
       }
     });
   }*/
@@ -53,6 +67,16 @@ export class DetalleMovieComponent implements OnInit{
             (result: PeliculaData) => {
               this.detalle = result;
               console.log('Detalles de la Movie:', this.detalle);
+              
+              // Forzar la detección de cambios
+              this.cdr.detectChanges();
+              
+              if (this.detalle?.movieGenres?.$values) {
+                const genreNames = this.detalle.movieGenres.$values.map((mg: MovieGenre) => mg.genre.name);
+                console.log('Géneros de la película:', genreNames);
+              } else {
+                console.log('No se encontraron géneros para esta película.');
+              }
             },
             error => {
               console.error('Error al obtener los detalles de la Movie', error);
@@ -60,15 +84,21 @@ export class DetalleMovieComponent implements OnInit{
           );
         }
       });
-    } 
+    }
+    
+    
+    trackByGenre(index: number, genre: MovieGenre): number {
+      return genre.genreId; // Usa un identificador único
+    }
+    
     
 
   portadaPelicula(): string {
-    return `${this.detalle.posterPath}`;
+    return this.detalle?.posterPath || '';  // Devuelve una cadena vacía si detalle o posterPath son undefined
   }
 
   fondoPelicula(): string {
-    return `${this.detalle.backdropPath}`;
+    return this.detalle?.backdropPath || '';  // Devuelve una cadena vacía si detalle o backdropPath son undefined
   }
 
   openModal(): void {
@@ -100,39 +130,44 @@ export class DetalleMovieComponent implements OnInit{
   trailerSeries(id: number) {
     this.route.navigate(['trailersPeliculas', id]);
   }
+
   /*checkIfFavorite(): void {
     // Lógica para verificar si la película está en favoritos
     this.api.getFavorites(this.userId).subscribe(favorites => {
       this.isFavorite = favorites.some((f: { movieId: any; }) => f.movieId === this.detalle.seriesId);
     });
   }*/
-    checkIfFavorite(): void {
-      // Lógica para verificar si la película está en favoritos
-      this.api.getFavorites(this.userId).subscribe(favorites => {
-        const favoriteItems = favorites.$values || favorites; // Accede a los valores si están en $values
-        this.isFavorite = favoriteItems.some((f: { movieId: any; }) => f.movieId === this.detalle.movieId);
-      });
-    }
-    
- toggleFavorite(): void {
-  console.log('Current isFavorite:', this.isFavorite);
-  if (this.isFavorite) {
-    this.api.removeFavorite(this.userId, this.detalle.movieId).subscribe(() => {
-      this.isFavorite = true;
-      console.log('Removed from favorites');
-    });
-  } else {
-    const favorite = {
-      userId: this.userId,
-      movieId: this.detalle.movieId,
-      movieTitle: this.detalle.title,
-      posterPath: this.detalle.posterPath,
-    };
-    this.api.addFavorite(favorite).subscribe(() => {
-      this.isFavorite = true;
-      console.log('Added to favorites');
+
+  checkIfFavorite(): void {
+    // Lógica para verificar si la película está en favoritos
+    this.api.getFavorites(this.userId).subscribe(favorites => {
+      const favoriteItems = favorites.$values || favorites; // Accede a los valores si están en $values
+      this.isFavorite = favoriteItems.some((f: { movieId: any; }) => f.movieId === this.detalle.movieId);
     });
   }
-}
 
+  toggleFavorite(): void {
+    console.log('Current isFavorite:', this.isFavorite);
+    if (this.isFavorite) {
+      this.api.removeFavorite(this.userId, this.detalle.movieId).subscribe(() => {
+        this.isFavorite = false;  // Cambia a false cuando se remueve de favoritos
+        console.log('Removed from favorites');
+      });
+    } else {
+      const favorite = {
+        userId: this.userId,
+        movieId: this.detalle.movieId,
+        movieTitle: this.detalle.title,
+        posterPath: this.detalle.posterPath,
+      };
+
+      this.api.addFavorite(favorite).subscribe(() => {
+        this.isFavorite = true;  // Cambia a true cuando se añade a favoritos
+        console.log('Added to favorites');
+      });
+    }
+
+
+
+  }
 }

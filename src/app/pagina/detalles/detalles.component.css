@@ -1,81 +1,66 @@
 
 .portada {
-    width: 250px;
-    margin-top: 30px;
+  width: 250px;
+  margin-top: 30px;
 }
 
 .descripcion {
-    position: relative;
-    margin-left: 280px;
-    margin-top: -380px;
-    color: #fff;
+  position: relative;
+  margin-left: 280px;
+  margin-top: -380px;
+  color: #fff;
 }
 
 .fondo {
-    position: absolute;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(78, 78, 78, 0.5);
-    z-index: 1;
-    opacity: 0.1;
-    filter: blur(2px);
-    pointer-events: none;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(78, 78, 78, 0.5);
+  z-index: 1;
+  opacity: 0.1;
+  filter: blur(2px);
+  pointer-events: none;
 }
 
 .btn {
-    margin-top: 10px;
-    margin: 10px;
-   
-  }
+  margin-top: 10px;
+  margin: 10px;
+ 
+}
 
+#boton{
+border: transparent;
+background-color: transparent;
+margin-left: 120vh;
+}
 .genero {
-    margin-top: 10px;
-    margin-left: 270px;
-    text-align: center;
-    display: flex;
-    flex-direction: row;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
 }
 
 .listaGenero {
-    list-style-type: none;
-    margin-left: 10px;
-    margin-right: 10px;
-    margin-top: 10px;
-    padding: 10px;
-    border-radius: 10px;
-    background-color: #f2f2f2;
-    color: #000;
-    font-size: 15px;
-    font-weight: bold;
-    text-align: center;
+  list-style-type: none;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #f2f2f2;
+  color: #000;
+  font-size: 15px;
+  font-weight: bold;
+  text-align: center;
 }
 
 .desplazamiento {
-    position: relative;
-    margin-top: 20px;
+  position: relative;
+  margin-top: 20px;
 }
-/* Esto es opcional si necesitas estilos adicionales personalizados */
 
-  
-.favorite-btn {
-    padding: 10px 20px;
-    border: 2px solid #dc3545;
-    background-color: transparent;
-    color: #dc3545;
-    font-weight: bold;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
-  }
-  
-  .favorite-btn.active {
-    background-color: #dc3545;
-    color: #fff;
-  }
-  
-  .favorite-btn:hover {
-    background-color: #c82333;
-    color: #fff;
-  }
-  
+.favorite-btn:hover {
+background-color: #fff;
+color: #fff;
+}
+

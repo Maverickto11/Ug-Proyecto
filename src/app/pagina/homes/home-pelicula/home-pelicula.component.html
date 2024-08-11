@@ -1,9 +1,10 @@
 <div class="container">
-  <div *ngFor="let row of movies, itemsPerRow" class="row">
-      <div class="col-md-3" *ngFor="let movie of movies">
-          <div class="card" (click)="detalles(movie.movieId)">
-              <img class="card-img-top" src="{{ movie.posterPath }}"
-                  alt="Movie Poster">
-          </div>
+    <div *ngFor="let row of chunk(movies, itemsPerRow)" class="row">
+      <div class="col-md-3" *ngFor="let movie of row">
+        <div class="card" (click)="detalles(movie.movieId)">
+          <img class="card-img-top" src="{{ movie.posterPath }}" alt="Movie Poster">
+        </div>
       </div>
+    </div>
   </div>
+  

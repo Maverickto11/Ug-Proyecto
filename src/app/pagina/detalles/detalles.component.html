@@ -1,29 +1,30 @@
 <div class="container" *ngIf="detalle">
-    <div class="portada">
-      <img src="{{ detalle.posterPath }}" alt="poster" class="img-fluid">
-    </div>
-    <div class="descripcion">
-      <h3><b>{{detalle.title}}</b></h3>
-      <p><strong>Descripción:</strong>{{detalle.overview}}</p>
-      <p><strong>Fecha de lanzamiento:</strong> {{detalle.release_date || detalle.first_air_date}}</p>
-      <p><strong>Calificación:</strong> {{detalle.vote_average.toFixed(1)}}</p>
-      <button class="btn btn-outline-success" type="button" (click)="openTrailer()">Trailer</button>
+  <div class="portada">
+    <img [src]="portadaPelicula()" alt="poster" class="img-fluid">
+  </div>
+  <div class="descripcion">
+    <button id="boton" class="btn" [ngClass]="{'btn-outline-danger': !isFavorite, 'btn-danger': isFavorite}"
+      type="button"
+      (click)="toggleFavorite()">
+      <i class="fas fa-heart" [ngClass]="{'text-white': !isFavorite, 'text-danger': isFavorite}"></i>
+    </button>
 
-      <button 
-  type="button" 
-  (click)="toggleFavorite()" 
-  class="favorite-btn" 
-  [ngClass]="{'active': isFavorite}">
-  Favoritos
-</button>
-    </div>
+    <h3><b>{{detalle.title}}</b></h3>
+    <p><strong>Descripción:</strong>{{detalle.overview}}</p>
+    <p><strong>Fecha de lanzamiento:</strong> {{detalle.releaseDate | date:'dd/MM/yyyy' }}</p>
+    <p><strong>Calificación:</strong> {{detalle.rating.toFixed(1)}}</p>
+    <button class="btn btn-outline-success" type="button" (click)="openTrailer()">Trailer</button>
     <div class="genero">
-      <ul class="listaGenero" *ngFor="let detalleGenero of detalle.genres">
-        <li>{{detalleGenero.name}}</li>
+      <ul class="listaGenero">
+        <!-- Iterar sobre los géneros de la película -->
+        <li *ngFor="let genre of detalle.seriesGenres?.$values">
+          {{ genre.genre.name }}
+        </li>
       </ul>
     </div>
   </div>
-  <div class="fondo">
-    <img [src]="fondoPelicula()" alt="fondo" class="img-fluid">
-  </div>
-  
+ 
+</div>
+<div class="fondo">
+  <img [src]="fondoPelicula()" alt="fondo" class="img-fluid">
+</div>

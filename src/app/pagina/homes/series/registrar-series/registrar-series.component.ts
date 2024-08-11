@@ -65,7 +65,7 @@ export class RegistrarSeriesComponent {
       numberOfEpisodes: this.NumberOfEpisodes,
       trailer: this.Trailer,
       tipo: this.Tipo,
-      seriesGenres: this.selectedGenres.map((genreId) => ({ genreId }))
+      //seriesGenres: this.selectedGenres.map((genreId) => ({ genreId }))
     };
 
     this.api.addSerie(serie).subscribe(

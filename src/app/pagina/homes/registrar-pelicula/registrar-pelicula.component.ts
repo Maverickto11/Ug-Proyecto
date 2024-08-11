@@ -63,7 +63,8 @@ export class RegistrarPeliculaComponent {
       voteCount: this.VoteCount,
       duration: this.Duration,
       Trailer: this.Trailer,  
-      movieGenres: this.selectedGenres.map((genreId) => ({ genreId: genreId }))
+      //movieGenres: this.selectedGenres.map((genreId) => ({ genreId: genreId }))
+      
     };
   
     this.api.addPelicula(peli).subscribe(
