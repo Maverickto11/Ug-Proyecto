@@ -5,7 +5,6 @@ import { environment } from '../environment/environment';
 import { PeliculaData } from '../environment/PeliculaData';
 import { Genre } from '../environment/Genre';
 import { SerieData } from '../environment/SerieData';
-import { Comentario } from '../environment/Comentario';
 @Injectable({
   providedIn: 'root'
 })

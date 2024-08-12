@@ -8,7 +8,6 @@ import { CommonModule } from '@angular/common';
 import { MovieGenre } from '../../../environment/MovieGenre';
 import { ChangeDetectorRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Comentario } from '../../../environment/Comentario';
 import { Usuario } from '../../../environment/Usuario';
 
 @Component({
