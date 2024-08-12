@@ -5,6 +5,7 @@ import { environment } from '../environment/environment';
 import { PeliculaData } from '../environment/PeliculaData';
 import { Genre } from '../environment/Genre';
 import { SerieData } from '../environment/SerieData';
+import { Comentario } from '../environment/Comentario';
 @Injectable({
   providedIn: 'root'
 })
@@ -250,12 +251,19 @@ export class BuscadorPeliculasService {
     return this.http.delete(`https://localhost:7169/api/Favorites/${userId}/${movieId}`);
   }
 
-  /*getComentarios(): Observable<Comentario[]> {
-    return this.http.get<Comentario[]>(this.baseUrl);
+  getComentarios(): Observable<Comentario[]> {
+    return this.http.get<Comentario[]>(this.apiUrl);
   }
 
-  // Agregar un nuevo comentario
-  addComentario(comentario: Comentario): Observable<Comentario> {
-    return this.http.post<Comentario>(this.baseUrl, comentario);
-  }*/
+  agregarComentario(comentario: Comentario): Observable<Comentario> {
+    return this.http.post<Comentario>(this.apiUrl, comentario);
+  }
+
+  actualizarComentario(comentario: Comentario): Observable<Comentario> {
+    return this.http.put<Comentario>(`${this.apiUrl}/${comentario.id}`, comentario);
+  }
+
+  eliminarComentario(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
 }

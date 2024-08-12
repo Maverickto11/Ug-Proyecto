@@ -66,4 +66,74 @@ margin-left: 120vh;
   color: #fff;
 }
 
-  
+.comentarios {
+  color: white;
+  margin-top: 120px;
+  margin-left: 40px;
+}
+
+.comentarios textarea {
+  background-color: transparent;
+  border: 2px solid white;
+  border-radius: 5px;
+  color: white;
+}
+
+.publicar {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.btn-submit {
+  border: none;
+  background-color: cyan;
+  border-radius: 5px;
+  padding: 10px;
+  font-weight: bold;
+
+  &:hover {
+      background-color: rgb(3, 205, 255);
+      cursor: pointer;
+  }
+}
+
+.publicaciones {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.publicaciones:last-child {
+  margin-bottom: 2rem;
+}
+
+.publicaciones img {
+  width: 50px;
+  border-radius: 50%;
+}
+
+.resena {
+  max-width: 800px;
+
+  p {
+      margin: 0;
+      font-weight: bold;
+      letter-spacing: 3px;
+  }
+}
+
+.acciones  input{
+  background-color: cyan;
+  border: none;
+  border-radius: 5px;
+  padding: 5px;
+  margin-right: 20px;
+  font-weight: 500;
+
+  &:hover {
+      background-color: rgb(3, 205, 255);
+      cursor: pointer;
+  }
+}

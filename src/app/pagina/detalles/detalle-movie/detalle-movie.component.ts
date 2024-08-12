@@ -9,6 +9,7 @@ import { MovieGenre } from '../../../environment/MovieGenre';
 import { ChangeDetectorRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Usuario } from '../../../environment/Usuario';
+import { Comentario } from '../../../environment/Comentario';
 
 @Component({
   selector: 'app-detalle-movie',
@@ -27,7 +28,10 @@ export class DetalleMovieComponent implements OnInit {
   detalle: any;
   detallesPeli: string = '';
   seriesId: number | undefined;
-
+  listaCommnet: Comentario[] = [];
+  nuevoComentarioTexto: string = '';
+  modoEdicion: { [key: string]: boolean } = {};
+  comentarioEditado: Comentario | null = null;
   constructor(
     private api: BuscadorPeliculasService, 
     private router: ActivatedRoute, 
@@ -39,7 +43,7 @@ export class DetalleMovieComponent implements OnInit {
   ngOnInit(): void {
     this.Detalles();
     this.checkIfFavorite();
-
+    this.obtenerComentarios();
   }
 
 
@@ -172,5 +176,78 @@ export class DetalleMovieComponent implements OnInit {
       });
     }
   }
-  
+  obtenerComentarios(): void {
+    this.api.getComentarios().subscribe({
+      next: data => {
+        this.listaCommnet = data
+      },
+      error: error => {
+        alert("Ocurrió un error");
+      }
+    })
+}
+
+publicarComentario(): void {
+  const nuevoComentario: Comentario = {
+    id: String(this.listaCommnet.length + 1),
+    user: "Christian",
+    comment: this.nuevoComentarioTexto,
+    isAuth: true
+  };
+
+  this.api.agregarComentario(nuevoComentario).subscribe({
+    next: comentario => {
+      this.listaCommnet.push(comentario);
+      this.nuevoComentarioTexto = '';
+    },
+    error: error => {
+      alert('Ocurrio un error: ' + error);
+    }
+  });
+}
+
+editarComentario(): void {
+  if (this.comentarioEditado) {
+    this.api.actualizarComentario(this.comentarioEditado).subscribe({
+      next: (comentarioActualizado) => {
+        const index = this.listaCommnet.findIndex(com => com.id === comentarioActualizado.id);
+        if (index !== -1) {
+          this.listaCommnet[index] = comentarioActualizado;
+        }
+        this.modoEdicion[comentarioActualizado.id] = false; // Desactivar el modo de edición
+        this.comentarioEditado = null; // Limpiar la variable de comentario editado
+        alert("Comentario actualizado exitosamente");
+      },
+      error: (error) => {
+        let mensajeError = "Ocurrió un error al actualizar el comentario";
+        if (error.error && error.error.message) {
+          mensajeError = error.error.message;
+        } else if (error.message) {
+          mensajeError = error.message;
+        }
+        console.error("Error:", error); // Imprime el error en la consola para depuración
+        alert(mensajeError);
+      }
+    });
+  }
+}
+
+activarEdicion(comentario: Comentario): void {
+  this.modoEdicion[comentario.id] = true;
+  this.comentarioEditado = { ...comentario }; // Crea una copia del comentario para editar
+}
+
+borrarComentario(id: string): void {
+  const idStr = String(id); // Convierte el ID a string
+
+  this.api.eliminarComentario(idStr).subscribe({
+    next: () => {
+      // Filtra la lista para eliminar el comentario con el ID especificado
+      this.listaCommnet = this.listaCommnet.filter(com => com.id !== idStr);
+    },
+    error: error => {
+      alert("Ocurrió un error al eliminar el comentario");
+    }
+  });
+}
 }

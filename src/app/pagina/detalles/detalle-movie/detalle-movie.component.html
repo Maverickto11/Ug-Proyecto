@@ -29,7 +29,36 @@
    
   </div>
 
-
+  <div class="comentarios">
+    <h1>Reseñas y Comentarios</h1>
+    <div class="publicar">
+        <textarea [(ngModel)]="nuevoComentarioTexto"></textarea>
+        <input type="submit" value="Publicar" class="btn-submit" (click)="publicarComentario()">
+    </div>
+    <div>
+        @for (elem of listaCommnet; track elem) {
+        <div class="publicaciones">
+            <div class="resena">
+                <p>{{ elem.user }}</p>
+                <ng-container *ngIf="!modoEdicion[elem.id]; else editMode">
+                    <span>{{ elem.comment }}</span>
+                    <div class="acciones" *ngIf="elem.isAuth">
+                        <input type="submit" value="Actualizar" (click)="activarEdicion(elem)">
+                        <input type="submit" value="Eliminar" (click)="borrarComentario(elem.id)">
+                    </div>
+                </ng-container>
+                <ng-template #editMode>
+                    <textarea [(ngModel)]="comentarioEditado!.comment"></textarea>
+                    <div class="acciones">
+                        <input type="submit" value="Guardar" (click)="editarComentario()">
+                        <input type="submit" value="Cancelar" (click)="modoEdicion[elem.id] = false">
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+        }
+    </div>
+  </div>
 <div class="fondo">
   <img [src]="fondoPelicula()" alt="fondo" class="img-fluid">
 </div>
