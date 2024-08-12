@@ -5,6 +5,7 @@ import { environment } from '../environment/environment';
 import { PeliculaData } from '../environment/PeliculaData';
 import { Genre } from '../environment/Genre';
 import { SerieData } from '../environment/SerieData';
+import { Comentario } from '../Models/Comentario';
 @Injectable({
   providedIn: 'root'
 })
@@ -17,6 +18,22 @@ export class BuscadorPeliculasService {
       return this.http.get(`${environment.url}/trending/all/week?api_key=${environment.apiKey}`);
     }
   */
+  
+    getComentarios(): Observable<Comentario[]> {
+      return this.http.get<Comentario[]>(this.apiUrl);
+    }
+  
+    agregarComentario(comentario: Comentario): Observable<Comentario> {
+      return this.http.post<Comentario>(this.apiUrl, comentario);
+    }
+  
+    actualizarComentario(comentario: Comentario): Observable<Comentario> {
+      return this.http.put<Comentario>(`${this.apiUrl}/${comentario.id}`, comentario);
+    }
+  
+    eliminarComentario(id: string): Observable<void> {
+      return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    }
   bannerApiData(): Observable<any> {
     return this.http.get(`${environment.url2}`);
   }
