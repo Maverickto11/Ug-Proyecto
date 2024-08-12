@@ -49,7 +49,7 @@ export class InicioComponent implements OnInit {
   }
 
   bannerData() {
-    this.api.bannerApiData().subscribe((result) => {
+    this.api.getFavoritesTotal().subscribe((result) => {
       console.log(result, 'inicio#');
       this.bannnerApi = result.$values;
     },

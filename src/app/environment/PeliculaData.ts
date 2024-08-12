@@ -1,5 +1,6 @@
 // pelicula.model.ts
 
+import { Data } from "@angular/router";
 import { Genre } from "./Genre";
 import { MovieGenre } from "./MovieGenre";
 
@@ -7,7 +8,7 @@ export interface PeliculaData {
   movieId: number;  
   title: string;
   overview: string;
-  releaseDate?: string;
+  ReleaseDate?: string;
   posterPath?: string;
   backdropPath?: string;
   rating?: number;

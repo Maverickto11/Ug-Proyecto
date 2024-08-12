@@ -1,8 +1,11 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
 <div class="container" *ngIf="detalle">
   <div class="portada">
     <img [src]="portadaPelicula()" alt="poster" class="img-fluid">
   </div>
   <div class="descripcion">
+
     <button id="boton" class="btn" [ngClass]="{'btn-outline-danger': !isFavorite, 'btn-danger': isFavorite}"
       type="button"
       (click)="toggleFavorite()">
@@ -14,6 +17,7 @@
     <p><strong>Fecha de lanzamiento:</strong> {{detalle.releaseDate | date:'dd/MM/yyyy' }}</p>
     <p><strong>Calificación:</strong> {{detalle.rating.toFixed(1)}}</p>
     <button class="btn btn-outline-success" type="button" (click)="openTrailer()">Trailer</button>
+  
     <div class="genero">
       <ul class="listaGenero">
         <!-- Iterar sobre los géneros de la película -->

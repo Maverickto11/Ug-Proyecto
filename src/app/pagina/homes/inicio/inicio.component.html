@@ -4,7 +4,7 @@
     <div class="carousel-item active" *ngFor="let b of bannnerApi; let i=index" [class.active]="i === currentIndex">
       <img src="{{ b.backdropPath }}" class="d-block w-100" alt="...">      
       <div class="carousel-caption d-none d-md-block">
-        <h2>{{b.title}}</h2>
+        <h2>{{b.movieTitle}}</h2>
         <p class="parrafoPelicula">{{ truncatedOverview(b.overview, i) }}
           <span class="read-more" *ngIf="isOverMaxLength(b.overview, i)" (mouseenter)="toggleOverview(i)"
             (mouseleave)="toggleOverview(i)">

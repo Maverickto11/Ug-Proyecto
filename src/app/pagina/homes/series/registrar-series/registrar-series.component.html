@@ -1,67 +1,90 @@
 <!-- HTML -->
-<div class="flex items-center justify-center min-h-screen bg-black bg-cover bg-center" style="background-image: url('../../../assets/fondo2.jpg');">
+<div class="flex items-center justify-center min-h-screen bg-black bg-cover bg-center"
+    style="background-image: url('../../../assets/fondo2.jpg');">
     <div class="w-full max-w-md p-8 space-y-6 bg-black bg-opacity-75 rounded-md shadow-lg">
         <h2 class="text-3xl font-bold text-center text-white">Registro de Serie</h2>
         <form (ngSubmit)="addSerie()" #peliculaForm="ngForm">
             <!-- Título de la película -->
             <div class="space-y-4">
                 <div>
-                    <input type="text" id="titulo" name="titulo" [(ngModel)]="Title" class="w-full px-4 py-2 text-white placeholder-gray-500 bg-gray-800 border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600" placeholder="Título" required>
+                    <input type="text" id="titulo" name="titulo" [(ngModel)]="Title"
+                        class="w-full px-4 py-2 text-white placeholder-gray-500 bg-gray-800 border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600"
+                        placeholder="Título" required>
                 </div>
 
                 <!-- Descripción de la película -->
                 <div>
-                    <textarea id="descripcion" name="descripcion" rows="4" [(ngModel)]="Overview" class="w-full px-4 py-2 text-white placeholder-gray-500 bg-gray-800 border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600" placeholder="Descripción" required></textarea>
+                    <textarea id="descripcion" name="descripcion" rows="4" [(ngModel)]="Overview"
+                        class="w-full px-4 py-2 text-white placeholder-gray-500 bg-gray-800 border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600"
+                        placeholder="Descripción" required></textarea>
                 </div>
-
+                <!-- Calificación de la película -->
+                <div>
+                    <input type="number" id="rating" name="rating" [(ngModel)]="Rating" min="0" max="10" step="0.1"
+                        class="w-full px-4 py-2 text-white placeholder-gray-500 bg-gray-800 border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600"
+                        placeholder="Calificación (0-10)">
+                </div>
                 <!-- Género de la película -->
                 <div>
-                    <select id="genero" name="genero" [(ngModel)]="selectedGenres" class="w-full px-4 py-2 text-white bg-gray-800 border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600" multiple>
+                    <select id="genero" name="genero" [(ngModel)]="selectedGenres"
+                        class="w-full px-4 py-2 text-white bg-gray-800 border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600"
+                        multiple>
                         <option *ngFor="let genre of genres" [value]="genre.genreId">{{ genre.name }}</option>
                     </select>
                 </div>
 
-                <!-- Trailer de la película -->
-                <div>
-                    <input type="url" id="trailer" name="trailer" class="w-full px-4 py-2 text-white placeholder-gray-500 bg-gray-800 border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600" placeholder="Enlace al Trailer">
+                  <!-- Trailer de la película -->
+                  <div>
+                    <input type="url" id="trailer" [(ngModel)]="Trailer" name="trailer"
+                        class="w-full px-4 py-2 text-white placeholder-gray-500 bg-gray-800 border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600"
+                        placeholder="Enlace al Trailer">
                 </div>
 
                 <!-- Selección de imagen -->
                 <div class="space-y-2">
                     <div>
-                        <input type="radio" id="uploadImage" name="imageOption" [(ngModel)]="imageOption" value="upload" class="mr-2"> 
+                        <input type="radio" id="uploadImage" name="imageOption" [(ngModel)]="imageOption" value="upload"
+                            class="mr-2">
                         <label for="uploadImage" class="text-white">Subir desde el escritorio</label>
                     </div>
                     <div>
-                        <input type="radio" id="imageUrl" name="imageOption" [(ngModel)]="imageOption" value="url" class="mr-2"> 
+                        <input type="radio" id="imageUrl" name="imageOption" [(ngModel)]="imageOption" value="url"
+                            class="mr-2">
                         <label for="imageUrl" class="text-white">Usar enlace de Internet</label>
                     </div>
                 </div>
 
                 <!-- Imagen de portada desde el escritorio -->
                 <div *ngIf="imageOption === 'upload'">
-                    <input type="file" id="imagen" (change)="onFileSelected($event)" class="w-full px-4 py-2 text-white placeholder-gray-500 bg-gray-800 border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600">
+                    <input type="file" id="imagen" (change)="onFileSelected($event)"
+                        class="w-full px-4 py-2 text-white placeholder-gray-500 bg-gray-800 border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600">
                 </div>
 
                 <!-- Enlace de imagen desde Internet -->
                 <div *ngIf="imageOption === 'url'">
-                    <input type="text" id="imageLink" [(ngModel)]="PosterPath" name="imageLink" class="w-full px-4 py-2 text-white placeholder-gray-500 bg-gray-800 border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600" placeholder="Enlace de Imagen">
+                    <input type="text" id="imageLink" [(ngModel)]="PosterPath" name="imageLink"
+                        class="w-full px-4 py-2 text-white placeholder-gray-500 bg-gray-800 border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600"
+                        placeholder="Enlace de Imagen">
                 </div>
 
                 <div>
-                    <input type="url" id="imagen" [(ngModel)]="BackdropPath" name="imagen" class="w-full px-4 py-2 text-white placeholder-gray-500 bg-gray-800 border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600" placeholder="Enlace de Imagen">
+                    <input type="url" id="imagen" [(ngModel)]="BackdropPath" name="imagen"
+                        class="w-full px-4 py-2 text-white placeholder-gray-500 bg-gray-800 border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600"
+                        placeholder="Enlace de Imagen">
                 </div>
 
                 <!-- Botón de enviar -->
                 <div class="flex justify-end">
-                    <button type="submit" class="w-full py-2 font-semibold text-white bg-red-600 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-600" [disabled]="peliculaForm.invalid">Registrar Película</button>
+                    <button type="submit"
+                        class="w-full py-2 font-semibold text-white bg-red-600 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-600"
+                        [disabled]="peliculaForm.invalid">Registrar Serie</button>
                 </div>
             </div>
         </form>
 
         <!-- Enlace al registro de series -->
         <div class="mt-4 text-center">
-            <a [routerLink]="['/register']" class="text-white hover:underline">Ir a Registro de Película</a>
+            <a [routerLink]="['/registroPeliculas']" class="text-white hover:underline">Ir a Registro de Película</a>
         </div>
     </div>
 </div>

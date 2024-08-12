@@ -6,7 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { PeliculaData } from '../../../environment/PeliculaData';
 import { BuscadorPeliculasService } from '../../../Services/api.service';
 import { Genre } from '../../../environment/Genre';
-import { RouterModule } from '@angular/router';
+import { Data, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-registrar-pelicula',
@@ -56,7 +56,7 @@ export class RegistrarPeliculaComponent {
       movieId: this.MovieId ?? 0,  // Proporciona un valor predeterminado si es undefined
       title: this.Title,
       overview: this.Overview,
-      releaseDate: this.ReleaseDate,
+      ReleaseDate: this.ReleaseDate,
       posterPath: this.PosterPath,
       backdropPath: this.BackdropPath,
       rating: this.Rating,

@@ -6,7 +6,7 @@ export interface SerieData {
   [x: string]: any;
     seriesId: number;
   title: string;
-  releaseDate?: Date;
+  releaseDate?: string;
   overview: string;
   posterPath: string;
   backdropPath?: string;

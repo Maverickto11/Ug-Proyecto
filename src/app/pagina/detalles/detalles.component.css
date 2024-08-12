@@ -34,10 +34,11 @@ border: transparent;
 background-color: transparent;
 margin-left: 120vh;
 }
+
 .genero {
-  text-align: center;
-  display: flex;
-  flex-direction: row;
+text-align: center;
+display: flex;
+flex-direction: row;
 }
 
 .listaGenero {
@@ -58,6 +59,7 @@ margin-left: 120vh;
   position: relative;
   margin-top: 20px;
 }
+
 
 .favorite-btn:hover {
 background-color: #fff;

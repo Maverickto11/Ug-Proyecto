@@ -7,11 +7,14 @@ import { TrailersComponent } from '../../trailers/trailers.component';
 import { CommonModule } from '@angular/common';
 import { MovieGenre } from '../../../environment/MovieGenre';
 import { ChangeDetectorRef } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Comentario } from '../../../environment/Comentario';
+import { Usuario } from '../../../environment/Usuario';
 
 @Component({
   selector: 'app-detalle-movie',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './detalle-movie.component.html',
   styleUrl: './detalle-movie.component.css'
 })
@@ -25,6 +28,7 @@ export class DetalleMovieComponent implements OnInit {
   detalle: any;
   detallesPeli: string = '';
   seriesId: number | undefined;
+
   constructor(
     private api: BuscadorPeliculasService, 
     private router: ActivatedRoute, 
@@ -159,6 +163,8 @@ export class DetalleMovieComponent implements OnInit {
         movieId: this.detalle.movieId,
         movieTitle: this.detalle.title,
         posterPath: this.detalle.posterPath,
+        backdropPath: this.detalle.backdropPath,
+        overview: this.detalle.overview,
       };
 
       this.api.addFavorite(favorite).subscribe(() => {
@@ -166,8 +172,6 @@ export class DetalleMovieComponent implements OnInit {
         console.log('Added to favorites');
       });
     }
-
-
-
   }
+  
 }

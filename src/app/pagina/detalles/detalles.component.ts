@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { BuscadorPeliculasService } from '../../Services/api.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -7,6 +7,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { TrailersComponent } from '../trailers/trailers.component';
 import { SerieData } from '../../environment/SerieData';
 import { PeliculaData } from '../../environment/PeliculaData';
+import { MovieGenre } from '../../environment/MovieGenre';
 
 @Component({
   selector: 'app-detalles',
@@ -25,7 +26,14 @@ export class DetallesComponent implements OnInit {
   detalle: any;
   detallesPeli: string = '';
   seriesId: number | undefined;
-  constructor(private api: BuscadorPeliculasService, private router: ActivatedRoute, public dialog: MatDialog, private route: Router) { }
+  
+  constructor(private api: BuscadorPeliculasService, 
+    private router: ActivatedRoute, 
+    public dialog: MatDialog, 
+    private route: Router,
+    private cdr: ChangeDetectorRef
+
+  ) { }
 
   ngOnInit(): void {
     this.Detalles();
@@ -71,24 +79,29 @@ export class DetallesComponent implements OnInit {
           this.api.getDetallesSerie1(id).subscribe(
             (result: SerieData) => {
               this.detalle = result;
-              console.log('Detalles de la Movie:', this.detalle);
-              
+              console.log('Detalles de la Serie:', this.detalle);
+              this.cdr.detectChanges();
+    
               // Extraer y mostrar nombres de géneros
               if (this.detalle?.seriesGenres?.$values) {
-            //    const genreNames = this.detalle.movieGenres.$values.map((sg: SerieData) => sg.genre.name);
-           //     console.log('Géneros de la película:', genreNames);
+                const genreNames = this.detalle.seriesGenres.$values.map((mg: SerieData) => mg['genre']['name']);
+                console.log('Géneros de la serie:', genreNames);
               } else {
-                console.log('No se encontraron géneros para esta película.');
+                console.log('No se encontraron géneros para esta Serie.');
               }
             },
             error => {
-              console.error('Error al obtener los detalles de la Movie', error);
+              console.error('Error al obtener los detalles de la Serie', error);
             }
           );
         }
       });
     }
-
+    
+    
+    trackByGenre(index: number, genre: MovieGenre): number {
+      return genre.genreId; // Usa un identificador único
+    }
 
   portadaPelicula(): string {
     return this.detalle?.posterPath || '';  // Devuelve una cadena vacía si detalle o posterPath son undefined
@@ -159,6 +172,8 @@ export class DetallesComponent implements OnInit {
         movieId: this.detalle.seriesId,
         movieTitle: this.detalle.title,
         posterPath: this.detalle.posterPath,
+        backdropPath: this.detalle.backdropPath,
+        overview: this.detalle.overview,      
       };
       this.api.addFavorite(favorite).subscribe(() => {
         this.isFavorite = true; // Cambia el estado a true cuando se agrega el favorito

@@ -17,7 +17,7 @@ import { RouterModule } from '@angular/router';
 export class RegistrarSeriesComponent {
   Title: string = '';
   Overview: string = '';
-  ReleaseDate?: Date;
+  releaseDate?: string;
   PosterPath: string = '';
   BackdropPath?: string;
   Rating?: number;
@@ -56,7 +56,7 @@ export class RegistrarSeriesComponent {
       seriesId: this.SeriesId ?? 0,  // Proporciona un valor predeterminado si es undefined
       title: this.Title,
       overview: this.Overview,
-      releaseDate: this.ReleaseDate,
+      releaseDate: this.releaseDate,
       posterPath: this.PosterPath,
       backdropPath: this.BackdropPath,
       rating: this.Rating,
@@ -98,7 +98,7 @@ export class RegistrarSeriesComponent {
   resetForm() {
     this.Title = '';
     this.Overview = '';
-    this.ReleaseDate = undefined;
+    this.releaseDate = undefined;
     this.PosterPath = '';
     this.BackdropPath = '';
     this.Rating = undefined;

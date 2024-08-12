@@ -5,11 +5,13 @@ import { environment } from '../environment/environment';
 import { PeliculaData } from '../environment/PeliculaData';
 import { Genre } from '../environment/Genre';
 import { SerieData } from '../environment/SerieData';
+import { Comentario } from '../environment/Comentario';
 @Injectable({
   providedIn: 'root'
 })
 export class BuscadorPeliculasService {
   private apiUrl = 'https://localhost:7169/api';
+ // private baseUrl = 'https://localhost:7169/api/Comentario';
 
   constructor(private http: HttpClient) { }
   /* 
@@ -233,7 +235,9 @@ export class BuscadorPeliculasService {
     );
   }*/
 
-
+  getFavoritesTotal(): Observable<any> {
+    return this.http.get(`https://localhost:7169/api/Favorites`);
+  }
 
   getFavorites(userId: number): Observable<any> {
     return this.http.get(`https://localhost:7169/api/Favorites/${userId}`);
@@ -246,4 +250,13 @@ export class BuscadorPeliculasService {
   removeFavorite(userId: number, movieId: number): Observable<any> {
     return this.http.delete(`https://localhost:7169/api/Favorites/${userId}/${movieId}`);
   }
+
+  /*getComentarios(): Observable<Comentario[]> {
+    return this.http.get<Comentario[]>(this.baseUrl);
+  }
+
+  // Agregar un nuevo comentario
+  addComentario(comentario: Comentario): Observable<Comentario> {
+    return this.http.post<Comentario>(this.baseUrl, comentario);
+  }*/
 }
