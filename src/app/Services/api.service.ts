@@ -11,7 +11,7 @@ import { Comentario } from '../environment/Comentario';
 })
 export class BuscadorPeliculasService {
   private apiUrl = 'https://localhost:7169/api';
- // private baseUrl = 'https://localhost:7169/api/Comentario';
+  private baseUrl2 = 'https://localhost:7169/api/Comentario';
 
   constructor(private http: HttpClient) { }
   /* 
@@ -251,19 +251,11 @@ export class BuscadorPeliculasService {
     return this.http.delete(`https://localhost:7169/api/Favorites/${userId}/${movieId}`);
   }
 
-  getComentarios(): Observable<Comentario[]> {
-    return this.http.get<Comentario[]>(this.apiUrl);
+  getComentariosPorPelicula(movieId: number): Observable<Comentario[]> {
+    return this.http.get<Comentario[]>(`${this.baseUrl2}/movie/${movieId}`);
   }
 
-  agregarComentario(comentario: Comentario): Observable<Comentario> {
-    return this.http.post<Comentario>(this.apiUrl, comentario);
-  }
-
-  actualizarComentario(comentario: Comentario): Observable<Comentario> {
-    return this.http.put<Comentario>(`${this.apiUrl}/${comentario.id}`, comentario);
-  }
-
-  eliminarComentario(id: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  addComentario(comentario: Comentario): Observable<Comentario> {
+    return this.http.post<Comentario>(this.baseUrl2, comentario);
   }
 }

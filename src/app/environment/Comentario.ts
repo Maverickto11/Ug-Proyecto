@@ -1,6 +1,15 @@
+import { PeliculaData } from "./PeliculaData";
+import { SerieData } from "./SerieData";
+import { Usuario } from "./Usuario";
+
 export interface Comentario {
-    id: string,
-    user: string,
-    comment: string,
-    isAuth: boolean
-} 
+  id: number;
+  contenido: string;
+  fecha: Date;
+  usuarioId: number;
+  usuario: Usuario;
+  movieId?: number;
+  movie?: PeliculaData;
+  seriesId?: number;
+  series?: SerieData;
+}

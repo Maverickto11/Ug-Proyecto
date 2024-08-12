@@ -29,35 +29,19 @@
    
   </div>
 
-  <div class="comentarios">
-    <h1>Reseñas y Comentarios</h1>
-    <div class="publicar">
-        <textarea [(ngModel)]="nuevoComentarioTexto"></textarea>
-        <input type="submit" value="Publicar" class="btn-submit" (click)="publicarComentario()">
-    </div>
-    <div>
-        @for (elem of listaCommnet; track elem) {
-        <div class="publicaciones">
-            <div class="resena">
-                <p>{{ elem.user }}</p>
-                <ng-container *ngIf="!modoEdicion[elem.id]; else editMode">
-                    <span>{{ elem.comment }}</span>
-                    <div class="acciones" *ngIf="elem.isAuth">
-                        <input type="submit" value="Actualizar" (click)="activarEdicion(elem)">
-                        <input type="submit" value="Eliminar" (click)="borrarComentario(elem.id)">
-                    </div>
-                </ng-container>
-                <ng-template #editMode>
-                    <textarea [(ngModel)]="comentarioEditado!.comment"></textarea>
-                    <div class="acciones">
-                        <input type="submit" value="Guardar" (click)="editarComentario()">
-                        <input type="submit" value="Cancelar" (click)="modoEdicion[elem.id] = false">
-                    </div>
-                </ng-template>
-            </div>
-        </div>
-        }
-    </div>
+ <!-- Sección de comentarios -->
+<div class="comentarios">
+  <h4>Comentarios</h4>
+  <ul>
+    <li *ngFor="let comentario of comentarios">
+      <p><strong>{{ comentario.usuario.nombre }}:</strong> {{ comentario.contenido }} <span>{{ comentario.fecha | date: 'short' }}</span></p>
+    </li>
+  </ul>
+
+  <div class="nuevo-comentario">
+    <textarea [(ngModel)]="nuevoComentario" placeholder="Escribe tu comentario..." rows="4"></textarea>
+    <button (click)="addComentario()" class="btn btn-primary">Agregar Comentario</button>
+  </div>
   </div>
 <div class="fondo">
   <img [src]="fondoPelicula()" alt="fondo" class="img-fluid">
